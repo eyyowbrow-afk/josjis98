@@ -1,0 +1,2551 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JOSJIS98.com - Platform Game Online Terbaik | Zeus Theme</title>
+  <meta name="description" content="JOSJIS98.com - Platform game online premium dengan tema Zeus, pengalaman bermain yang megah dan menakjubkan." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f5e6d3 0%, #fff8f0 25%, #e8f0fe 50%, #f0e6ff 75%, #fdf2e9 100%);
+      color: #2c1810;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f0e6d8; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #c9a94e, #8b6914); border-radius: 3px; }
+
+    :root {
+      --gold: #c9a94e;
+      --gold-dark: #a68a3e;
+      --gold-light: #e8d48b;
+      --bg-light: #faf3eb;
+      --bg-card: #ffffff;
+      --bg-nav: rgba(255,255,255,0.92);
+      --border: #d4c5b5;
+      --border-light: #e8ddd0;
+      --text: #2c1810;
+      --text-dark: #8a7a6a;
+      --green: #2ecc71;
+      --red: #e74c3c;
+      --blue: #3498db;
+      --purple: #8e44ad;
+      --marble: #f8f0e8;
+      --zeus-blue: #1a237e;
+      --zeus-gold: #c9a94e;
+    }
+
+    /* ZEUS ANIMATIONS */
+    @keyframes lightningFlash {
+      0%, 100% { opacity: 0; }
+      5% { opacity: 1; }
+      10% { opacity: 0; }
+      15% { opacity: 0.8; }
+      17% { opacity: 0; }
+    }
+    @keyframes floatCloud {
+      0% { transform: translateX(-200px); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { transform: translateX(calc(100vw + 200px)); opacity: 0; }
+    }
+    @keyframes zeusGlow {
+      0%, 100% { text-shadow: 0 0 20px rgba(201,169,78,0.3), 0 0 40px rgba(201,169,78,0.1); }
+      50% { text-shadow: 0 0 30px rgba(201,169,78,0.6), 0 0 60px rgba(201,169,78,0.2), 0 0 80px rgba(201,169,78,0.1); }
+    }
+    @keyframes thunderBolt {
+      0% { transform: scaleY(0); opacity: 0; }
+      20% { transform: scaleY(1); opacity: 1; }
+      40% { transform: scaleY(0.8); opacity: 0.8; }
+      60% { transform: scaleY(1); opacity: 1; }
+      100% { transform: scaleY(0); opacity: 0; }
+    }
+    @keyframes goldParticle {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { transform: translateY(-200px) rotate(720deg); opacity: 0; }
+    }
+    @keyframes marbleShimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    @keyframes pageFadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .page.active { animation: pageFadeIn 0.5s ease; }
+
+    /* Lightning overlay */
+    #lightningOverlay {
+      position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+      background: radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.3), transparent 60%);
+      animation: lightningFlash 8s ease-in-out infinite;
+    }
+
+    /* Floating clouds */
+    .cloud {
+      position: fixed; z-index: 0; pointer-events: none;
+      font-size: 60px; opacity: 0.15; animation: floatCloud 30s linear infinite;
+    }
+    .cloud:nth-child(2) { top: 15%; animation-duration: 40s; animation-delay: -10s; font-size: 80px; }
+    .cloud:nth-child(3) { top: 40%; animation-duration: 35s; animation-delay: -5s; font-size: 50px; }
+    .cloud:nth-child(4) { top: 60%; animation-duration: 45s; animation-delay: -20s; font-size: 70px; }
+
+    /* TOP BAR */
+    .topbar {
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      padding: 4px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      border-bottom: 1px solid rgba(201,169,78,0.2);
+      flex-wrap: wrap;
+      gap: 4px;
+      position: relative; z-index: 10;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 12px; }
+    .topbar-timer {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(201,169,78,0.1);
+      padding: 2px 10px;
+      border-radius: 4px;
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 11px;
+    }
+    .topbar-timer .tnum { font-weight: 800; min-width: 18px; text-align: center; }
+    .topbar-timer .tsep { color: var(--gold-dark); }
+    .topbar-right { display: flex; align-items: center; gap: 8px; }
+    .topbar-select {
+      background: transparent; border: 1px solid rgba(201,169,78,0.3);
+      color: #c8d6e5; padding: 2px 6px; border-radius: 3px;
+      font-size: 10px; cursor: pointer; outline: none; font-family: 'Poppins', sans-serif;
+    }
+    .topbar-select option { background: #1a1a2e; }
+    .topbar-link {
+      color: #6b7a8f; text-decoration: none; font-size: 10px;
+      padding: 2px 8px; border-radius: 3px; transition: 0.2s; cursor: pointer;
+    }
+    .topbar-link:hover { color: var(--gold); background: rgba(201,169,78,0.05); }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(180deg, #1a1a2e, #0f3460);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      border-bottom: 1px solid rgba(201,169,78,0.2);
+      position: relative; z-index: 10;
+    }
+    .logo-area { display: flex; align-items: center; gap: 10px; }
+    .logo-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--gold), #8b6914);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 20px; color: #1a1a2e;
+      box-shadow: 0 0 20px rgba(201,169,78,0.3);
+      animation: zeusGlow 3s ease-in-out infinite;
+    }
+    .logo-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px; font-weight: 900;
+      background: linear-gradient(135deg, var(--gold), #e8d48b, var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; letter-spacing: 2px;
+      animation: zeusGlow 3s ease-in-out infinite;
+    }
+    .logo-text .tagline { font-size: 9px; color: #6b7a8f; letter-spacing: 1px; font-weight: 300; }
+
+    .header-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .btn {
+      border: none; padding: 7px 16px; border-radius: 5px;
+      font-weight: 700; font-size: 12px; cursor: pointer;
+      transition: 0.3s; font-family: 'Poppins', sans-serif;
+      position: relative; z-index: 1;
+    }
+    .btn:hover { transform: scale(1.04); filter: brightness(1.1); }
+    .btn-gold { background: linear-gradient(135deg, var(--gold), #8b6914); color: #fff; }
+    .btn-green { background: linear-gradient(135deg, var(--green), #27ae60); color: #fff; }
+    .btn-red { background: linear-gradient(135deg, var(--red), #c0392b); color: #fff; }
+    .btn-outline {
+      background: transparent; border: 1px solid #d4c5b5;
+      color: #8a7a6a; padding: 7px 14px;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-sm { padding: 5px 10px; font-size: 10px; }
+
+    .balance-display {
+      background: rgba(255,255,255,0.9); border: 1px solid #d4c5b5;
+      border-radius: 6px; padding: 4px 12px; display: flex;
+      align-items: center; gap: 5px;
+    }
+    .balance-display .blabel { font-size: 9px; color: #8a7a6a; }
+    .balance-display .bamount { font-size: 14px; font-weight: 800; color: var(--gold); }
+    .user-name { color: #fff; font-size: 12px; font-weight: 600; }
+
+    /* NAVIGATION */
+    nav {
+      background: var(--bg-nav);
+      backdrop-filter: blur(12px);
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      overflow-x: auto;
+      border-bottom: 2px solid #d4c5b5;
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+    }
+    nav::-webkit-scrollbar { height: 0; }
+    nav a {
+      color: #8a7a6a; text-decoration: none;
+      padding: 10px 16px; font-size: 12px; font-weight: 600;
+      white-space: nowrap; transition: 0.3s;
+      border-bottom: 2px solid transparent; margin-bottom: -2px;
+      cursor: pointer; display: flex; align-items: center; gap: 6px;
+    }
+    nav a:hover, nav a.active { color: var(--gold); border-bottom-color: var(--gold); }
+    nav a.active { color: var(--gold); }
+    nav .nav-sep { color: #d4c5b5; font-size: 10px; padding: 0 4px; }
+
+    /* PAGE SYSTEM */
+    .page { display: none; padding: 16px 0; position: relative; z-index: 1; }
+    .page.active { display: block; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+
+    /* SECTION TITLES */
+    .section-title {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+    }
+    .section-title h2 { font-size: 18px; font-weight: 800; color: #2c1810; }
+    .section-title .line {
+      flex: 1; height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      border-radius: 1px;
+    }
+    .section-title .badge {
+      background: linear-gradient(135deg, var(--gold), #8b6914);
+      padding: 1px 8px; border-radius: 10px; font-size: 9px;
+      font-weight: 700; color: #fff;
+    }
+
+    /* CAROUSEL / SLIDER */
+    .slider-wrap {
+      position: relative; border-radius: 16px; overflow: hidden;
+      margin-bottom: 16px; max-height: 280px;
+      box-shadow: 0 8px 30px rgba(201,169,78,0.15);
+    }
+    .slider-track { display: flex; transition: transform 0.6s ease; }
+    .slider-slide {
+      min-width: 100%; height: 200px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; font-weight: 700;
+      position: relative; overflow: hidden;
+    }
+    .slider-slide .slide-bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+    }
+    .slider-slide .slide-content {
+      position: relative; z-index: 2; text-align: center;
+      padding: 20px;
+    }
+    .slider-slide .slide-content h3 { 
+      font-family: 'Playfair Display', serif;
+      color: var(--gold); font-size: 32px; font-weight: 900; 
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    .slider-slide .slide-content p { color: #fff; font-size: 14px; text-shadow: 0 1px 5px rgba(0,0,0,0.3); }
+    .slider-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      z-index: 10; background: rgba(26,26,46,0.6); border: none;
+      color: #fff; width: 32px; height: 32px; border-radius: 50%;
+      cursor: pointer; font-size: 14px; transition: 0.3s;
+    }
+    .slider-btn:hover { background: var(--gold); color: #1a1a2e; }
+    .slider-prev { left: 8px; }
+    .slider-next { right: 8px; }
+    .slider-dots {
+      display: flex; gap: 6px; justify-content: center;
+      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+      z-index: 10;
+    }
+    .slider-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,0.3); cursor: pointer; transition: 0.3s;
+    }
+    .slider-dot.active { background: var(--gold); width: 24px; border-radius: 4px; }
+
+    /* MARQUEE */
+    .marquee-wrap { margin-bottom: 14px; }
+    .marquee-box {
+      background: rgba(255,255,255,0.85); border: 1px solid #d4c5b5;
+      border-radius: 8px; padding: 8px 14px;
+      display: flex; align-items: center; gap: 10px; overflow: hidden;
+      backdrop-filter: blur(8px);
+    }
+    .marquee-box .mlabel {
+      background: linear-gradient(135deg, var(--gold), #8b6914);
+      padding: 3px 10px; border-radius: 3px; font-weight: 700;
+      font-size: 10px; color: #fff; white-space: nowrap; flex-shrink: 0;
+    }
+    .marquee-box .mticker {
+      color: #8a7a6a; font-size: 12px;
+      overflow: hidden; white-space: nowrap;
+    }
+    .marquee-box .mticker span {
+      display: inline-block; animation: mtick 25s linear infinite;
+    }
+    @keyframes mtick {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* HOT GAMES GRID */
+    .provider-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 10px; margin-bottom: 20px;
+    }
+    .provider-card {
+      background: #ffffff; border: 1px solid #d4c5b5;
+      border-radius: 8px; padding: 16px 10px; text-align: center;
+      cursor: pointer; transition: 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    .provider-card:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(201,169,78,0.1); }
+    .provider-card .p-icon {
+      width: 50px; height: 50px; margin: 0 auto 8px;
+      background: linear-gradient(135deg, #f8f0e8, #efe6dc);
+      border-radius: 12px; display: flex; align-items: center;
+      justify-content: center; font-size: 24px; border: 1px solid #e8ddd0;
+    }
+    .provider-card .p-name { font-weight: 600; font-size: 11px; color: #2c1810; }
+
+    /* JACKPOT DISPLAY */
+    .jackpot-display {
+      background: linear-gradient(135deg, #1a1a2e, #0f3460);
+      border: 2px solid var(--gold); border-radius: 12px;
+      padding: 20px; text-align: center; margin-bottom: 16px;
+      position: relative; overflow: hidden;
+    }
+    .jackpot-display::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(201,169,78,0.08), transparent 70%);
+      animation: jpPulse 2s ease-in-out infinite;
+    }
+    @keyframes jpPulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+    .jackpot-display .jp-label {
+      font-size: 12px; color: var(--gold); font-weight: 600;
+      text-transform: uppercase; letter-spacing: 2px;
+      position: relative; z-index: 1;
+    }
+    .jackpot-display .jp-amount {
+      font-size: 36px; font-weight: 900;
+      font-family: 'Playfair Display', serif;
+      background: linear-gradient(135deg, var(--gold), #e8d48b, var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; position: relative; z-index: 1;
+    }
+    .jackpot-display .jp-sub {
+      font-size: 11px; color: #8a7a8a; margin-top: 4px;
+      position: relative; z-index: 1;
+    }
+
+    /* MEGA JACKPOT SECTIONS */
+    .jackpot-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px; margin-bottom: 16px;
+    }
+    .jp-item {
+      background: #ffffff; border: 1px solid #d4c5b5;
+      border-radius: 8px; padding: 14px; text-align: center;
+      transition: 0.3s; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    .jp-item:hover { border-color: var(--gold); box-shadow: 0 4px 16px rgba(201,169,78,0.1); }
+    .jp-item .jp-item-icon { font-size: 28px; margin-bottom: 6px; }
+    .jp-item .jp-item-name { font-size: 10px; color: #8a7a6a; text-transform: uppercase; letter-spacing: 1px; }
+    .jp-item .jp-item-amount { font-size: 18px; font-weight: 800; color: var(--gold); margin-top: 4px; }
+
+    /* GAME LOBBY */
+    .game-lobby {
+      background: #ffffff; border: 1px solid #d4c5b5;
+      border-radius: 12px; padding: 20px; margin-bottom: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+    }
+    .game-lobby h3 {
+      color: #2c1810; font-size: 16px; font-weight: 700;
+      margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+    }
+    .game-thumb-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 10px;
+    }
+    .game-thumb {
+      background: linear-gradient(145deg, #ffffff, #f8f0e8);
+      border: 1px solid #d4c5b5; border-radius: 8px;
+      padding: 14px 10px; text-align: center; cursor: pointer;
+      transition: 0.3s;
+    }
+    .game-thumb:hover {
+      border-color: var(--gold); transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(201,169,78,0.15);
+    }
+    .game-thumb .gt-icon { font-size: 36px; margin-bottom: 8px; }
+    .game-thumb .gt-name { font-size: 11px; font-weight: 600; color: #2c1810; }
+    .game-thumb .gt-desc { font-size: 9px; color: #8a7a6a; margin-top: 2px; }
+
+    /* GAME AREA (for actual play) */
+    .game-area {
+      background: #ffffff; border: 1px solid #d4c5b5;
+      border-radius: 12px; padding: 24px; max-width: 500px; margin: 0 auto;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+    }
+    .game-area h2 { text-align: center; font-size: 18px; font-weight: 800; color: #2c1810; margin-bottom: 2px; }
+    .game-area .g-sub { text-align: center; font-size: 12px; color: #8a7a6a; margin-bottom: 14px; }
+    .bet-control {
+      display: flex; gap: 6px; align-items: center;
+      justify-content: center; margin-bottom: 14px; flex-wrap: wrap;
+    }
+    .bet-control label { font-size: 11px; color: #8a7a6a; font-weight: 600; }
+    .bet-control input {
+      background: #f8f0e8; border: 1px solid #d4c5b5;
+      color: #2c1810; padding: 6px 10px; border-radius: 5px;
+      font-size: 13px; width: 100px; text-align: center;
+      outline: none; font-family: 'Poppins', sans-serif;
+    }
+    .bet-control input:focus { border-color: var(--gold); }
+    .bet-control .chips { display: flex; gap: 3px; }
+    .bet-control .chip {
+      padding: 3px 8px; border-radius: 3px; font-size: 10px;
+      font-weight: 700; border: 1px solid #d4c5b5;
+      background: transparent; color: #8a7a6a;
+      cursor: pointer; transition: 0.3s;
+    }
+    .bet-control .chip:hover, .bet-control .chip.active {
+      border-color: var(--gold); color: var(--gold); background: rgba(201,169,78,0.08);
+    }
+    .game-result {
+      text-align: center; padding: 16px; margin-bottom: 14px;
+      border-radius: 10px; min-height: 80px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+    }
+    .game-result .result-text { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+    .game-result .result-amount { font-size: 14px; }
+    .game-result .result-amount.win { color: var(--green); }
+    .game-result .result-amount.lose { color: var(--red); }
+
+    /* SLOT REELS */
+    .slot-reels { display: flex; gap: 6px; justify-content: center; margin-bottom: 14px; }
+      .slot-reel {
+      width: 70px; height: 70px;
+      background: #f8f0e8; border: 2px solid #d4c5b5;
+      border-radius: 10px; display: flex; align-items: center;
+      justify-content: center; font-size: 34px;
+      overflow: hidden; position: relative;
+    }
+    .slot-reel.spinning { animation: sSpin 0.08s linear infinite; }
+    @keyframes sSpin {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-70px); }
+    }
+
+    /* DICE */
+    .dice-container { display: flex; gap: 16px; justify-content: center; margin-bottom: 14px; }
+    .dice {
+      width: 70px; height: 70px; background: #f8f0e8;
+      border: 2px solid #d4c5b5; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 38px; transition: 0.2s;
+    }
+    .dice.rolling { animation: dRoll 0.6s ease-out; }
+    @keyframes dRoll {
+      0% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(90deg) scale(1.15); }
+      50% { transform: rotate(180deg) scale(0.9); }
+      75% { transform: rotate(270deg) scale(1.05); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+    .dice-buttons { display: flex; gap: 10px; justify-content: center; margin-bottom: 10px; }
+    .dice-buttons button {
+      padding: 10px 24px; border: none; border-radius: 8px;
+      font-weight: 700; font-size: 13px; cursor: pointer;
+      transition: 0.3s; font-family: 'Poppins', sans-serif;
+    }
+    .dice-buttons button:hover { transform: translateY(-2px); }
+    .dice-buttons .btn-high { background: linear-gradient(135deg, var(--red), #c0392b); color: #fff; }
+    .dice-buttons .btn-low { background: linear-gradient(135deg, var(--blue), #2980b9); color: #fff; }
+
+    /* WHEEL */
+    .wheel-wrap {
+      position: relative; width: 250px; height: 250px;
+      margin: 0 auto 14px;
+    }
+    .wheel-canvas { width: 100%; height: 100%; border-radius: 50%; }
+    .wheel-pointer {
+      position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+      font-size: 24px; z-index: 5;
+    }
+    .wheel-spin-btn {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%); z-index: 5;
+      width: 50px; height: 50px; border-radius: 50%; border: none;
+      background: linear-gradient(135deg, var(--gold), #ff6b35);
+      color: #000; font-weight: 800; font-size: 10px; cursor: pointer;
+      box-shadow: 0 2px 10px rgba(240,185,11,0.4); transition: 0.3s;
+      font-family: 'Poppins', sans-serif;
+    }
+    .wheel-spin-btn:hover { transform: translate(-50%, -50%) scale(1.1); }
+
+    /* TOGEL / LOTTERY */
+    .togel-numbers {
+      display: flex; gap: 8px; justify-content: center; margin-bottom: 14px;
+    }
+    .togel-ball {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #f8f0e8, #efe6dc);
+      border: 2px solid var(--gold); display: flex;
+      align-items: center; justify-content: center;
+      font-size: 20px; font-weight: 800; color: #2c1810;
+    }
+    .togel-pick {
+      display: flex; gap: 6px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap;
+    }
+    .togel-pick-btn {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid #d4c5b5; background: transparent;
+      color: #2c1810; font-weight: 700; font-size: 12px;
+      cursor: pointer; transition: 0.3s; font-family: 'Poppins', sans-serif;
+    }
+    .togel-pick-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .togel-pick-btn.selected { background: var(--gold); color: #fff; border-color: var(--gold); }
+
+    /* SPORTS */
+    .sport-match {
+      background: #ffffff; border: 1px solid #d4c5b5;
+      border-radius: 8px; padding: 12px 16px; margin-bottom: 8px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: 0.3s; cursor: pointer;
+    }
+    .sport-match:hover { border-color: var(--gold); }
+    .sport-match .team { font-weight: 600; font-size: 13px; color: #2c1810; }
+    .sport-match .vs { color: #8a7a6a; font-size: 11px; }
+    .sport-match .odds { display: flex; gap: 6px; }
+    .sport-match .odd {
+      padding: 4px 10px; background: #f8f0e8; border: 1px solid #d4c5b5;
+      border-radius: 4px; font-size: 12px; font-weight: 600;
+      color: var(--gold); cursor: pointer; transition: 0.2s;
+    }
+    .sport-match .odd:hover { border-color: var(--gold); background: rgba(201,169,78,0.08); }
+
+    /* LIVE CASINO */
+    .casino-table-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px; margin-bottom: 16px;
+    }
+    .casino-table {
+      background: linear-gradient(145deg, #ffffff, #f8f0e8);
+      border: 1px solid #d4c5b5; border-radius: 10px;
+      padding: 16px; text-align: center; cursor: pointer; transition: 0.3s;
+    }
+    .casino-table:hover { border-color: var(--gold); transform: translateY(-2px); }
+    .casino-table .ct-dealer { font-size: 28px; margin-bottom: 6px; }
+    .casino-table .ct-name { font-weight: 600; font-size: 12px; color: #2c1810; }
+    .casino-table .ct-status {
+      font-size: 9px; color: var(--green); margin-top: 4px;
+      display: flex; align-items: center; justify-content: center; gap: 4px;
+    }
+    .casino-table .ct-status .live-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green); animation: ldPulse 1.5s infinite;
+    }
+    @keyframes ldPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    /* TOURNAMENT */
+    .tournament-wrap {
+      background: #ffffff; border: 1px solid #d4c5b5;
+      border-radius: 10px; padding: 16px; margin-bottom: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+    }
+    .tournament-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 14px; flex-wrap: wrap; gap: 8px;
+    }
+    .tournament-header h3 { font-size: 15px; font-weight: 700; color: var(--gold); }
+    .tournament-timer {
+      display: flex; align-items: center; gap: 4px;
+      background: rgba(201,169,78,0.08); padding: 3px 10px;
+      border-radius: 4px; font-size: 11px; color: var(--gold);
+    }
+    .tournament-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .tournament-table th {
+      text-align: left; padding: 8px 10px; color: var(--text-dark);
+      font-weight: 600; font-size: 10px; text-transform: uppercase;
+      letter-spacing: 1px; border-bottom: 1px solid var(--border);
+    }
+    .tournament-table td { padding: 8px 10px; border-bottom: 1px solid rgba(30,42,69,0.5); }
+    .tournament-table tr:hover td { background: rgba(240,185,11,0.03); }
+    .tournament-table .rank { font-weight: 700; color: var(--gold); }
+    .tournament-table .rank-1 { color: #ffd700; }
+    .tournament-table .rank-2 { color: #c0c0c0; }
+    .tournament-table .rank-3 { color: #cd7f32; }
+
+    /* PROVIDER PLATFORM */
+    .platform-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 8px; margin-bottom: 16px;
+    }
+    .platform-item {
+      background: #ffffff; border: 1px solid #d4c5b5;
+      border-radius: 6px; padding: 12px 8px; text-align: center;
+      cursor: pointer; transition: 0.3s;
+    }
+    .platform-item:hover { border-color: var(--gold); }
+
+    /* LEADERBOARD */
+    .leaderboard-table {
+      width: 100%; border-collapse: collapse; font-size: 12px;
+    }
+    .leaderboard-table th {
+      text-align: left; padding: 8px 10px; color: var(--text-dark);
+      font-weight: 600; font-size: 10px; text-transform: uppercase;
+      letter-spacing: 1px; border-bottom: 1px solid var(--border);
+    }
+    .leaderboard-table td { padding: 8px 10px; border-bottom: 1px solid rgba(30,42,69,0.5); }
+    .leaderboard-table .rank { font-weight: 700; color: var(--gold); }
+
+    /* HISTORY */
+    .history-list { display: flex; flex-direction: column; gap: 6px; }
+    .history-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 12px; background: #ffffff;
+      border: 1px solid #d4c5b5; border-radius: 6px; font-size: 12px;
+    }
+    .history-item .h-game { font-weight: 600; color: #2c1810; }
+    .history-item .h-result { font-weight: 700; }
+    .history-item .h-result.win { color: var(--green); }
+    .history-item .h-result.lose { color: var(--red); }
+    .history-item .h-amount { font-weight: 700; }
+    .history-item .h-time { font-size: 10px; color: #555; }
+
+    /* STATS */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px; margin-bottom: 16px;
+    }
+    .stat-card {
+      background: #ffffff; border: 1px solid #d4c5b5;
+      border-radius: 8px; padding: 12px; text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    .stat-card .s-label { font-size: 10px; color: #8a7a6a; margin-top: 2px; }
+
+    /* TABS */
+    .tabs {
+      display: flex; gap: 4px; margin-bottom: 14px;
+      background: #ffffff; border-radius: 8px; border: 1px solid #d4c5b5;
+      padding: 4px; overflow-x: auto;
+    }
+    .tabs .tab {
+      padding: 7px 14px; border: none; border-radius: 6px;
+      font-weight: 600; font-size: 11px; cursor: pointer;
+      transition: 0.3s; white-space: nowrap;
+      background: transparent; color: #8a7a6a;
+      font-family: 'Poppins', sans-serif;
+    }
+    .tabs .tab.active { background: linear-gradient(135deg, var(--gold), #8b6914); color: #fff; }
+
+
+
+    /* FOOTER */
+    .footer {
+      background: linear-gradient(180deg, #1a1a2e, #0f3460);
+      border-top: 1px solid rgba(201,169,78,0.2);
+      padding: 30px 20px 16px; margin-top: 30px;
+      position: relative; z-index: 1;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 24px;
+    }
+    .footer-col h3 { color: var(--gold); font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+    .footer-col p, .footer-col a {
+      color: #8a7a8a; font-size: 11px; line-height: 2;
+      text-decoration: none; display: block; transition: 0.3s;
+    }
+    .footer-col a:hover { color: var(--gold); padding-left: 2px; }
+    .footer-bottom {
+      max-width: 1200px; margin: 16px auto 0; padding-top: 14px;
+      border-top: 1px solid rgba(201,169,78,0.15); text-align: center;
+      font-size: 10px; color: #6b5a6b;
+    }
+
+    /* LIVE CHAT BUTTON */
+    .livechat-btn {
+      position: fixed; bottom: 20px; right: 20px; z-index: 999;
+      width: 50px; height: 50px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), #8b6914);
+      border: none; color: #fff; font-size: 20px; cursor: pointer;
+      box-shadow: 0 4px 16px rgba(201,169,78,0.4);
+      transition: 0.3s; display: flex; align-items: center; justify-content: center;
+    }
+    .livechat-btn:hover { transform: scale(1.1); box-shadow: 0 6px 24px rgba(201,169,78,0.6); }
+    .livechat-btn .pulse {
+      position: absolute; inset: 0; border-radius: 50%;
+      background: rgba(201,169,78,0.3); animation: lcPulse 2s infinite;
+    }
+    @keyframes lcPulse {
+      0% { transform: scale(1); opacity: 0.6; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.75); z-index: 1000;
+      align-items: center; justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.show { display: flex; }
+    .modal {
+      background: #ffffff; border: 1px solid #d4c5b5;
+      border-radius: 14px; padding: 28px; width: 90%; max-width: 380px;
+      position: relative; animation: modalIn 0.3s ease;
+      max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    }
+    @keyframes modalIn {
+      from { transform: scale(0.9) translateY(20px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    .modal-close {
+      position: absolute; top: 10px; right: 14px;
+      background: none; border: none; color: #8a7a6a;
+      font-size: 20px; cursor: pointer;
+    }
+    .modal-close:hover { color: var(--gold); }
+    .modal h2 { font-size: 20px; font-weight: 800; color: #2c1810; margin-bottom: 2px; }
+    .modal .m-sub { color: var(--text-dark); font-size: 12px; margin-bottom: 14px; }
+    .modal .form-group { margin-bottom: 10px; }
+    .modal .form-group label {
+      display: block; font-size: 11px; font-weight: 600;
+      color: #8a7a6a; margin-bottom: 3px;
+    }
+    .modal .form-group input, .modal .form-group select {
+      width: 100%; padding: 8px 12px; background: #f8f0e8;
+      border: 1px solid #d4c5b5; border-radius: 6px;
+      color: #2c1810; font-size: 13px; outline: none;
+      font-family: 'Poppins', sans-serif;
+    }
+    .modal .form-group input:focus { border-color: var(--gold); }
+    .modal .btn-submit {
+      width: 100%; padding: 10px; border: none; border-radius: 6px;
+      font-weight: 700; font-size: 13px; cursor: pointer;
+      transition: 0.3s; font-family: 'Poppins', sans-serif;
+    }
+    .modal .btn-submit:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+    /* TOAST */
+    .toast {
+      position: fixed; bottom: 80px; right: 20px; z-index: 2000;
+      padding: 10px 18px; border-radius: 8px; font-weight: 600;
+      font-size: 12px; transform: translateY(20px); opacity: 0;
+      transition: 0.3s; max-width: 300px;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success {
+      background: linear-gradient(135deg, #e8f5e9, #ffffff);
+      border: 1px solid var(--green); color: var(--green);
+    }
+    .toast.error {
+      background: linear-gradient(135deg, #fde8e8, #ffffff);
+      border: 1px solid var(--red); color: var(--red);
+    }
+    .toast.info {
+      background: linear-gradient(135deg, #e8f0fe, #ffffff);
+      border: 1px solid var(--blue); color: var(--blue);
+    }
+
+    .empty-state { text-align: center; padding: 30px; color: #8a7a6a; }
+    .empty-state .e-icon { font-size: 36px; margin-bottom: 8px; }
+    .empty-state .e-text { font-size: 12px; }
+
+    /* E-GAMES */
+    .egame-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px; margin-bottom: 16px;
+    }
+    .egame-card {
+      background: linear-gradient(145deg, #ffffff, #f8f0e8);
+      border: 1px solid #d4c5b5; border-radius: 10px;
+      padding: 18px 12px; text-align: center; cursor: pointer;
+      transition: 0.3s;
+    }
+    .egame-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+    .egame-card .eg-icon { font-size: 32px; margin-bottom: 8px; }
+    .egame-card .eg-name { font-weight: 700; font-size: 12px; color: #2c1810; }
+    .egame-card .eg-desc { font-size: 9px; color: #8a7a6a; margin-top: 2px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      header { flex-direction: column; align-items: stretch; }
+      .header-right { justify-content: center; }
+      .slider-slide { height: 140px; }
+      .slider-slide .slide-content h3 { font-size: 20px; }
+      .provider-grid { grid-template-columns: repeat(3, 1fr); }
+      .game-thumb-grid { grid-template-columns: repeat(2, 1fr); }
+      .casino-table-grid { grid-template-columns: repeat(2, 1fr); }
+      .egame-grid { grid-template-columns: repeat(2, 1fr); }
+      .jackpot-grid { grid-template-columns: repeat(2, 1fr); }
+      .platform-grid { grid-template-columns: repeat(3, 1fr); }
+      .slot-reel { width: 56px; height: 56px; font-size: 26px; }
+      .togel-ball { width: 40px; height: 40px; font-size: 16px; }
+      .game-area { padding: 16px; }
+      nav { padding: 0 10px; }
+      nav a { padding: 8px 10px; font-size: 11px; }
+      .jackpot-display .jp-amount { font-size: 26px; }
+    }
+    @media (max-width: 480px) {
+      .provider-grid { grid-template-columns: repeat(2, 1fr); }
+      .game-thumb-grid { grid-template-columns: 1fr; }
+      .modal { padding: 20px 14px; }
+      .bet-control { flex-direction: column; }
+      .sport-match { flex-direction: column; gap: 8px; }
+      .jackpot-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Lightning overlay -->
+<div id="lightningOverlay"></div>
+
+<!-- Floating clouds -->
+<div class="cloud" style="top:5%;">☁️</div>
+<div class="cloud" style="top:25%;">☁️</div>
+<div class="cloud" style="top:45%;">☁️</div>
+<div class="cloud" style="top:65%;">☁️</div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-timer">
+      <span class="tnum" id="thr">0</span><span class="tsep">Hr</span>
+      <span class="tnum" id="tmin">0</span><span class="tsep">Jam</span>
+      <span class="tnum" id="tsec">0</span><span class="tsep">Men</span>
+      <span class="tnum" id="tdsec">0</span><span class="tsep">Dtk</span>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <select class="topbar-select" id="langSelect">
+      <option value="en">English</option>
+      <option value="id" selected>Bahasa Indonesia</option>
+    </select>
+    <select class="topbar-select" id="currencySelect">
+      <option>IDR - Rp</option>
+    </select>
+    <a class="topbar-link" onclick="openModal('complaint')">📞 Pusat Pengaduan</a>
+    <a class="topbar-link" onclick="showPage('rules')">📋 Aturan Situs Web</a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-area">
+    <div class="logo-icon">⚡</div>
+    <div class="logo-text">
+      <h1>JOSJIS98</h1>
+      <div class="tagline">⚡ PLATFORM GAME ONLINE ZEUS ⚡</div>
+    </div>
+  </div>
+  <div class="header-right" id="userInfo">
+    <div id="loggedOutView">
+      <button class="btn btn-gold" onclick="openModal('login')">Masuk</button>
+      <button class="btn btn-green" onclick="openModal('register')">Daftar</button>
+    </div>
+    <div id="loggedInView" style="display:none">
+      <span class="user-name" id="displayName"></span>
+      <div class="balance-display">
+        <span class="blabel">💰</span>
+        <span class="bamount" id="displayBalance">0</span>
+      </div>
+      <button class="btn btn-sm btn-gold" onclick="openModal('deposit')">Deposit</button>
+      <button class="btn btn-sm btn-red" onclick="openModal('withdraw')">Withdraw</button>
+      <button class="btn btn-sm btn-outline" onclick="logout()">Keluar</button>
+    </div>
+  </div>
+</header>
+
+<!-- NAVIGATION -->
+<nav>
+  <a class="active" onclick="showPage('home')">🏠 Home</a>
+  <span class="nav-sep">|</span>
+  <a onclick="showPage('sport')">⚽ SPORT</a>
+  <a onclick="showPage('slots')">🎰 SLOTS</a>
+  <a onclick="showPage('togel')">🔢 TOGEL</a>
+  <a onclick="showPage('casino')">🎲 Live Casino</a>
+  <a onclick="showPage('egames')">🎮 E-GAMES</a>
+  <a onclick="showPage('promo')">🎁 Promosi</a>
+  <a onclick="showPage('hasil')">📊 Hasil Keluaran</a>
+  <a onclick="showPage('history')">📜 Riwayat</a>
+</nav>
+
+<div class="container">
+
+<!-- PAGE: HOME -->
+<div class="page active" id="pageHome">
+
+  <!-- Carousel -->
+  <div class="slider-wrap">
+    <div class="slider-track" id="sliderTrack">
+      <div class="slider-slide">
+        <div class="slide-bg" style="background:linear-gradient(135deg,#1a0a2a,#0d1520)"></div>
+        <div class="slide-content">
+          <h3>⚡ JOSJIS98</h3>
+          <p>Platform Game Online Premium No.1 Indonesia</p>
+          <button class="btn btn-gold" onclick="openModal('register')" style="margin-top:10px;font-size:14px;padding:10px 28px">DAFTAR SEKARANG</button>
+        </div>
+      </div>
+      <div class="slider-slide">
+        <div class="slide-bg" style="background:linear-gradient(135deg,#0a1a2a,#0d1520)"></div>
+        <div class="slide-content">
+          <h3>💰 MEGA JACKPOT</h3>
+          <p>Kemenangan besar menanti Anda!</p>
+          <div style="font-size:32px;font-weight:900;color:var(--gold);margin-top:6px" id="sliderJackpot">Rp 24,956,179,799</div>
+        </div>
+      </div>
+      <div class="slider-slide">
+        <div class="slide-bg" style="background:linear-gradient(135deg,#2a1a0a,#0d1520)"></div>
+        <div class="slide-content">
+          <h3>🏆 TURNAMEN</h3>
+          <p>World Cup 2026 - Total Hadiah Melimpah!</p>
+          <button class="btn btn-gold" onclick="showPage('home')" style="margin-top:10px;font-size:14px;padding:10px 28px">IKUTI TURNAMEN</button>
+        </div>
+      </div>
+    </div>
+    <button class="slider-btn slider-prev" onclick="slidePrev()">‹</button>
+    <button class="slider-btn slider-next" onclick="slideNext()">›</button>
+    <div class="slider-dots" id="sliderDots"></div>
+  </div>
+
+  <!-- Marquee -->
+  <div class="marquee-wrap">
+    <div class="marquee-box">
+      <span class="mlabel">📢 INFO</span>
+      <div class="mticker"><span>⚡ SELAMAT DATANG DI JOSJIS98.COM | >>> KEMENANGAN BESAR DIMULAI DISINI <<< | DAFTAR DAN DAPATKAN BONUS 100% | MEGA JACKPOT HINGGA MILIARAN RUPIAH | DIDUKUNG OLEH ZEUS, DEWA PETIR ⚡</span></div>
+    </div>
+  </div>
+
+  <!-- Stat Grid -->
+  <div class="stat-grid">
+    <div class="stat-card"><div class="s-num" id="homePlayers">12,847</div><div class="s-label">👥 Pemain Aktif</div></div>
+    <div class="stat-card"><div class="s-num" id="homeGames">100+</div><div class="s-label">🎮 Total Game</div></div>
+    <div class="stat-card"><div class="s-num" id="homeJackpot">Rp 24.9 M</div><div class="s-label">💰 Mega Jackpot</div></div>
+    <div class="stat-card"><div class="s-num" id="homeWinrate">97.5%</div><div class="s-label">📈 Winrate</div></div>
+  </div>
+
+  <div class="section-title"><h2>🔥 HOT GAMES</h2><span class="badge">⚡ ZEUS PICKS</span><div class="line"></div></div>
+  <div class="provider-grid" id="hotGamesGrid"></div>
+
+  <!-- MEGA JACKPOT -->
+  <div class="jackpot-display">
+    <div class="jp-label">🏆 MEGA JACKPOT</div>
+    <div class="jp-amount" id="megaJackpot">Rp 24,956,179,799</div>
+    <div class="jp-sub">Kejar jackpot progresif terbesar hari ini!</div>
+  </div>
+  <div class="jackpot-grid" id="jackpotGrid"></div>
+
+  <!-- Tournament -->
+  <div class="section-title"><h2>🏆 TURNAMEN GLOBAL</h2><span class="badge">WORLD CUP 2026</span><div class="line"></div></div>
+  <div class="tournament-wrap">
+    <div class="tournament-header">
+      <h3>TOURNAMENT WORLD CUP 2026</h3>
+      <div class="tournament-timer" id="tournamentTimer">
+        <span>⏱</span>
+        <span id="tourDays">0</span>Hr <span id="tourHours">0</span>Jam <span id="tourMins">0</span>Men <span id="tourSecs">0</span>Dtk
+      </div>
+    </div>
+    <table class="tournament-table">
+      <thead><tr><th>Peringkat</th><th>Nama User</th><th>Turnover</th></tr></thead>
+      <tbody id="tournamentBody">
+        <tr><td><span class="rank rank-1">🥇</span></td><td>J******</td><td>3,337,696,520</td></tr>
+        <tr><td><span class="rank rank-2">🥈</span></td><td>R***********</td><td>1,454,902,040</td></tr>
+        <tr><td><span class="rank rank-3">🥉</span></td><td>O****</td><td>560,300,300</td></tr>
+        <tr><td><span class="rank">4</span></td><td>I*******</td><td>521,728,380</td></tr>
+        <tr><td><span class="rank">5</span></td><td>B*******</td><td>317,619,000</td></tr>
+      </tbody>
+    </table>
+    <div style="text-align:center;margin-top:10px">
+      <button class="btn btn-outline btn-sm" onclick="showPage('home')">Muat Lagi</button>
+    </div>
+  </div>
+
+  <!-- Provider Game -->
+  <div class="section-title"><h2>🎯 PROVIDER GAME</h2><span class="badge">PREMIUM</span><div class="line"></div></div>
+  <div class="platform-grid" id="platformGrid"></div>
+
+  <!-- CTA -->
+  <div style="text-align:center;padding:24px 0">
+    <h2 style="color:#fff;font-size:22px;font-weight:800;margin-bottom:8px">⚡ JOSJIS98.COM ⚡</h2>
+    <p style="color:var(--text-dark);font-size:13px;margin-bottom:14px">Platform Game Online Premium No.1 Indonesia</p>
+    <button class="btn btn-gold" onclick="openModal('register')" style="font-size:18px;padding:14px 48px">🎯 Daftar</button>
+  </div>
+</div>
+
+<!-- PAGE: SLOTS -->
+<div class="page" id="pageSlots">
+  <div class="section-title"><h2>🎰 SLOTS</h2><span class="badge">PROVIDER</span><div class="line"></div></div>
+  <div class="tabs" id="slotTabs">
+    <button class="tab active" onclick="switchSlotProvider('all')">Semua</button>
+    <button class="tab" onclick="switchSlotProvider('pragmatic')">Pragmatic Play</button>
+    <button class="tab" onclick="switchSlotProvider('pgsoft')">PG Soft</button>
+    <button class="tab" onclick="switchSlotProvider('habanero')">Habanero</button>
+    <button class="tab" onclick="switchSlotProvider('microgaming')">Microgaming</button>
+  </div>
+  <div class="game-thumb-grid" id="slotGamesGrid"></div>
+  <div style="text-align:center;margin-top:14px">
+    <button class="btn btn-gold" onclick="showPage('slotPlay')">🎰 Main Slot</button>
+  </div>
+</div>
+
+<!-- PAGE: SLOT PLAY (actual slot machine) -->
+<div class="page" id="pageSlotPlay">
+  <div class="game-area">
+    <h2>⚡ JOSJIS98 SLOT</h2>
+    <p class="g-sub">Putar dan dapatkan jackpot hingga 100x!</p>
+    <div class="slot-reels">
+      <div class="slot-reel" id="slotReel1"><span id="slotSym1">🍒</span></div>
+      <div class="slot-reel" id="slotReel2"><span id="slotSym2">🍒</span></div>
+      <div class="slot-reel" id="slotReel3"><span id="slotSym3">🍒</span></div>
+    </div>
+    <div class="bet-control">
+      <label>Taruhan:</label>
+      <input type="number" id="slotBet" value="1000" min="100" step="100">
+      <div class="chips">
+        <button class="chip" onclick="setBet('slotBet',100)">100</button>
+        <button class="chip" onclick="setBet('slotBet',500)">500</button>
+        <button class="chip" onclick="setBet('slotBet',1000)">1K</button>
+        <button class="chip" onclick="setBet('slotBet',5000)">5K</button>
+        <button class="chip" onclick="setBet('slotBet',10000)">10K</button>
+      </div>
+    </div>
+    <div style="text-align:center;margin-bottom:8px">
+      <button class="btn btn-gold" onclick="playSlot()" id="slotBtn" style="font-size:16px;padding:12px 40px">🎰 PUTAR</button>
+    </div>
+    <div class="game-result" id="slotResult" style="display:none"></div>
+    <div id="slotPaytable" style="font-size:10px;color:#8a7a6a;text-align:center;background:rgba(201,169,78,0.04);padding:8px;border-radius:6px;border:1px solid rgba(201,169,78,0.08)">
+      🍒🍒🍒 = 3x | 🍋🍋🍋 = 5x | 🍊🍊🍊 = 8x | 🍇🍇🍇 = 10x | 🔔🔔🔔 = 15x | ⭐⭐⭐ = 25x | 💎💎💎 = 50x | 👑👑👑 = 100x
+    </div>
+    <div style="text-align:center;margin-top:10px">
+      <button class="btn btn-outline btn-sm" onclick="showPage('slots')">← Kembali ke Provider</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: TOGEL -->
+<div class="page" id="pageTogel">
+  <div class="section-title"><h2>🔢 TOGEL</h2><span class="badge">LOTTERY</span><div class="line"></div></div>
+  <div class="tabs" id="togelTabs">
+    <button class="tab active" onclick="switchTogelType('4d')">4D</button>
+    <button class="tab" onclick="switchTogelType('3d')">3D</button>
+    <button class="tab" onclick="switchTogelType('2d')">2D</button>
+  </div>
+  <div class="game-area">
+    <h2>🔢 TOGEL JOSJIS98</h2>
+    <p class="g-sub">Pilih angka keberuntungan Anda!</p>
+    <div class="togel-numbers" id="togelResult">
+      <div class="togel-ball" id="togelB1">-</div>
+      <div class="togel-ball" id="togelB2">-</div>
+      <div class="togel-ball" id="togelB3">-</div>
+      <div class="togel-ball" id="togelB4">-</div>
+    </div>
+    <div style="text-align:center;margin-bottom:8px;font-size:12px;color:var(--text-dark)">
+      Pilih 4 angka (0-9) untuk pasangan 4D:
+    </div>
+    <div class="togel-pick" id="togelPick">
+      <div class="togel-pick" id="togelPick1"></div>
+      <div style="color:var(--gold);font-weight:700;font-size:16px;padding:0 4px">-</div>
+      <div class="togel-pick" id="togelPick2"></div>
+      <div style="color:var(--gold);font-weight:700;font-size:16px;padding:0 4px">-</div>
+      <div class="togel-pick" id="togelPick3"></div>
+      <div style="color:var(--gold);font-weight:700;font-size:16px;padding:0 4px">-</div>
+      <div class="togel-pick" id="togelPick4"></div>
+    </div>
+    <div class="bet-control">
+      <label>Taruhan:</label>
+      <input type="number" id="togelBet" value="1000" min="100" step="100">
+    </div>
+    <div style="text-align:center">
+      <button class="btn btn-gold" onclick="playTogel()" id="togelBtn" style="font-size:14px;padding:10px 30px">🔮 PASANG</button>
+    </div>
+    <div class="game-result" id="togelResultDisplay" style="display:none"></div>
+  </div>
+</div>
+
+<!-- PAGE: LIVE CASINO -->
+<div class="page" id="pageCasino">
+  <div class="section-title"><h2>🎲 LIVE CASINO</h2><span class="badge">LIVE</span><div class="line"></div></div>
+  <div class="casino-table-grid" id="casinoGrid"></div>
+  <div class="game-area" style="display:none" id="casinoGameArea">
+    <h2>🎲 Live Casino</h2>
+    <p class="g-sub" id="casinoGameName">Baccarat</p>
+    <div style="text-align:center;margin-bottom:14px">
+      <div style="display:flex;justify-content:center;gap:20px;margin-bottom:10px">
+        <div style="text-align:center">
+          <div style="font-size:36px;font-weight:900;color:var(--gold);background:#ffffff;border:2px solid #d4c5b5;border-radius:10px;padding:16px 24px;min-width:100px" id="casinoPlayer">?</div>
+          <div style="font-size:10px;color:var(--text-dark);margin-top:4px">PLAYER</div>
+        </div>
+        <div style="display:flex;align-items:center;font-size:20px;font-weight:900;color:var(--gold)">VS</div>
+        <div style="text-align:center">
+          <div style="font-size:36px;font-weight:900;color:var(--red);background:#ffffff;border:2px solid #d4c5b5;border-radius:10px;padding:16px 24px;min-width:100px" id="casinoBanker">?</div>
+          <div style="font-size:10px;color:var(--text-dark);margin-top:4px">BANKER</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-gold" onclick="playCasino('player')">Player (1:1)</button>
+        <button class="btn btn-green" onclick="playCasino('banker')">Banker (0.95:1)</button>
+        <button class="btn btn-outline" onclick="playCasino('tie')">Tie (8:1)</button>
+      </div>
+      <div class="bet-control" style="margin-top:10px">
+        <label>Taruhan:</label>
+        <input type="number" id="casinoBet" value="1000" min="100" step="100">
+      </div>
+    </div>
+    <div class="game-result" id="casinoResult" style="display:none"></div>
+    <div style="text-align:center;margin-top:8px">
+      <button class="btn btn-outline btn-sm" onclick="document.getElementById('casinoGameArea').style.display='none'">← Kembali</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: E-GAMES -->
+<div class="page" id="pageEgames">
+  <div class="section-title"><h2>🎮 E-GAMES</h2><span class="badge">FUN</span><div class="line"></div></div>
+  <div class="egame-grid" id="egameGrid"></div>
+  <div style="text-align:center;margin-top:8px">
+    <button class="btn btn-outline btn-sm" onclick="showPage('home')">← Kembali</button>
+  </div>
+</div>
+
+<!-- PAGE: SPORT -->
+<div class="page" id="pageSport">
+  <div class="section-title"><h2>⚽ SPORT</h2><span class="badge">SBOBET</span><div class="line"></div></div>
+  <div class="tabs" id="sportTabs">
+    <button class="tab active" onclick="switchSportLeague('all')">Semua</button>
+    <button class="tab" onclick="switchSportLeague('soccer')">⚽ Sepak Bola</button>
+    <button class="tab" onclick="switchSportLeague('basketball')">🏀 Basket</button>
+    <button class="tab" onclick="switchSportLeague('tennis')">🎾 Tenis</button>
+  </div>
+  <div id="sportMatches"></div>
+  <div style="text-align:center;margin-top:8px">
+    <button class="btn btn-outline btn-sm" onclick="showPage('home')">← Kembali</button>
+  </div>
+</div>
+
+<!-- PAGE: PROMO -->
+<div class="page" id="pagePromo">
+  <div class="section-title"><h2>🎁 PROMOSI</h2><span class="badge">BONUS</span><div class="line"></div></div>
+  <div class="promo-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px">
+    <div class="promo-card" style="background:linear-gradient(135deg,#1a0a0a,#0d1520);border:1px solid var(--gold);border-radius:10px;padding:20px;position:relative;overflow:hidden">
+      <span style="position:absolute;top:10px;right:10px;background:rgba(240,185,11,0.15);color:var(--gold);padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700">NEW</span>
+      <h3 style="color:#fff;font-size:16px;font-weight:800;margin-bottom:8px">🎉 Bonus Selamat Datang 100%</h3>
+      <p style="color:var(--text-dark);font-size:11px;line-height:1.6;margin-bottom:10px">Dapatkan bonus 100% untuk deposit pertama Anda! Minimal deposit Rp 50.000.</p>
+      <button class="btn btn-gold" onclick="openModal('register')">Klaim Bonus</button>
+    </div>
+    <div class="promo-card" style="background:linear-gradient(135deg,#0a0a1a,#0d1520);border:1px solid var(--border);border-radius:10px;padding:20px;position:relative;overflow:hidden">
+      <span style="position:absolute;top:10px;right:10px;background:rgba(46,204,113,0.15);color:var(--green);padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700">HARIAN</span>
+      <h3 style="color:#fff;font-size:16px;font-weight:800;margin-bottom:8px">📅 Bonus Harian 10%</h3>
+      <p style="color:var(--text-dark);font-size:11px;line-height:1.6;margin-bottom:10px">Dapatkan bonus 10% setiap kali Anda melakukan deposit harian.</p>
+      <button class="btn btn-green" onclick="openModal('deposit')">Klaim Sekarang</button>
+    </div>
+    <div class="promo-card" style="background:linear-gradient(135deg,#0a1a0a,#0d1520);border:1px solid var(--border);border-radius:10px;padding:20px;position:relative;overflow:hidden">
+      <span style="position:absolute;top:10px;right:10px;background:rgba(155,89,182,0.15);color:var(--purple);padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700">VIP</span>
+      <h3 style="color:#fff;font-size:16px;font-weight:800;margin-bottom:8px">👑 Cashback Mingguan 5%</h3>
+      <p style="color:var(--text-dark);font-size:11px;line-height:1.6;margin-bottom:10px">Dapatkan cashback 5% dari total kekalahan Anda setiap minggu.</p>
+      <button class="btn btn-purple" onclick="openModal('login')" style="background:linear-gradient(135deg,var(--purple),#8e44ad);border:none;padding:7px 16px;border-radius:5px;font-weight:700;font-size:12px;cursor:pointer;color:#fff">Info Lengkap</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: HASIL KELUARAN -->
+<div class="page" id="pageHasil">
+  <div class="section-title"><h2>📊 HASIL KELUARAN</h2><span class="badge">TOGEL</span><div class="line"></div></div>
+  <div class="game-lobby">
+    <h3>📊 Hasil Togel Terbaru</h3>
+    <div id="hasilList" class="history-list"></div>
+  </div>
+</div>
+
+<!-- PAGE: HISTORY -->
+<div class="page" id="pageHistory">
+  <div class="section-title"><h2>📜 RIWAYAT GAME</h2><div class="line"></div></div>
+  <div id="historyList" class="history-list"></div>
+  <div class="section-title" style="margin-top:20px"><h2>💳 RIWAYAT TRANSAKSI</h2><div class="line"></div></div>
+  <div id="txnList" class="history-list"></div>
+</div>
+
+
+<!-- PAGE: RULES -->
+<div class="page" id="pageRules">
+  <div class="game-lobby">
+    <h3>📋 Aturan Situs Web</h3>
+    <div style="color:var(--text-dark);font-size:12px;line-height:1.8">
+      <p style="margin-bottom:10px;color:#2c1810;font-weight:700">1. Ketentuan Umum</p>
+      <p>Dengan mendaftar dan menggunakan layanan JOSJIS98.com, Anda menyetujui semua syarat dan ketentuan yang berlaku.</p>
+      <p style="margin-bottom:10px;margin-top:16px;color:#fff;font-weight:700">2. Pendaftaran</p>
+      <p>Pemain wajib mengisi data diri dengan benar. Setiap akun hanya diperbolehkan satu kali pendaftaran.</p>
+      <p style="margin-bottom:10px;margin-top:16px;color:#fff;font-weight:700">3. Deposit & Withdraw</p>
+      <p>Proses deposit dan withdraw diproses dalam waktu 1x24 jam. Minimal deposit Rp 10.000 dan minimal withdraw Rp 50.000.</p>
+      <p style="margin-bottom:10px;margin-top:16px;color:#fff;font-weight:700">4. Bonus & Promosi</p>
+      <p>Setiap bonus memiliki syarat turnover yang harus dipenuhi sebelum melakukan withdraw.</p>
+      <p style="margin-bottom:10px;margin-top:16px;color:#2c1810;font-weight:700">5. Keamanan</p>
+      <p>JOSJIS98.com menjaga kerahasiaan data pribadi Anda dan tidak akan membagikannya kepada pihak ketiga.</p>
+    </div>
+    <div style="text-align:center;margin-top:16px">
+      <button class="btn btn-outline btn-sm" onclick="showPage('home')">← Kembali</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h3>⚡ JOSJIS98</h3>
+      <p>JOSJIS98.com adalah platform game online premium dengan tema Zeus, menghadirkan pengalaman bermain paling megah dan menakjubkan.</p>
+    </div>
+    <div class="footer-col">
+      <h3>Permainan</h3>
+      <a href="#" onclick="showPage('slots')">🎰 Slot Online</a>
+      <a href="#" onclick="showPage('togel')">🔢 Togel</a>
+      <a href="#" onclick="showPage('casino')">🎲 Live Casino</a>
+      <a href="#" onclick="showPage('sport')">⚽ Sportsbook</a>
+      <a href="#" onclick="showPage('egames')">🎮 E-Games</a>
+    </div>
+    <div class="footer-col">
+      <h3>Bantuan</h3>
+      <a href="#" onclick="showPage('rules')">📋 Aturan Situs</a>
+      <a href="#" onclick="openModal('complaint')">📞 Pusat Pengaduan</a>
+      <a href="#" onclick="openModal('deposit')">💳 Cara Deposit</a>
+      <a href="#" onclick="openModal('withdraw')">💸 Cara Withdraw</a>
+    </div>
+    <div class="footer-col">
+      <h3>Kontak</h3>
+      <a href="#">📱 Live Chat 24 Jam</a>
+      <a href="#">📧 support@josjis98.com</a>
+      <a href="#">💬 Telegram: @josjis98</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>Copyright © 2026 JOSJIS98.com. All rights reserved.</p>
+    <p style="margin-top:4px">⚡ JOSJIS98.com : Platform Game Online Premium No.1 Indonesia ⚡</p>
+  </div>
+</footer>
+
+<button class="livechat-btn" onclick="openModal('complaint')" title="Live Chat 24 Jam"><div class="pulse"></div>💬</button>
+<div class="toast" id="toast"></div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script src="/js/api-bridge.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════════════
+// GLOBAL STATE
+// ═══════════════════════════════════════════════════════════════
+let currentUser = null;
+let users = {};
+let currentPage = 'home';
+
+const DEPO_CODES = { 'ZEUS10':10000, 'OLYMPUS':50000, 'THUNDER':100000, 'GOLD99':25000, 'WELCOME':50000, 'MEGA':100000 };
+
+function loadData() {
+  try { const u = JSON.parse(localStorage.getItem('josjis98_users')); if (u) users = u; } catch(e) {}
+  try {
+    const cu = localStorage.getItem('josjis98_current');
+    if (cu && users[cu]) { currentUser = cu; renderUser(); }
+  } catch(e) {}
+}
+function saveUsers() { localStorage.setItem('josjis98_users', JSON.stringify(users)); }
+function getUser() { return currentUser ? users[currentUser] : null; }
+
+loadData();
+(function loadCustomCodes() {
+  try { const c = JSON.parse(localStorage.getItem('josjis98_custom_codes')); if (c) Object.assign(DEPO_CODES, c); } catch(e) {}
+})();
+
+
+// ═══════════════════════════════════════════════════════════════
+// UI HELPERS
+// ═══════════════════════════════════════════════════════════════
+function showToast(msg, type = 'info') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast ' + type + ' show';
+  clearTimeout(t._hide); t._hide = setTimeout(() => t.classList.remove('show'), 3000);
+}
+function setBet(id, v) { document.getElementById(id).value = v; }
+function formatNum(n) { return Number(n).toLocaleString('id-ID'); }
+function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+function renderUser() {
+  const u = getUser();
+  document.getElementById('loggedOutView').style.display = u ? 'none' : 'flex';
+  document.getElementById('loggedInView').style.display = u ? 'flex' : 'none';
+  if (u) {
+    document.getElementById('displayName').textContent = u.username;
+    document.getElementById('displayBalance').textContent = formatNum(u.balance || 0);
+  }
+}
+
+function requireAuth(cb) {
+  if (!getUser()) { showToast('Silakan login atau daftar dulu!', 'error'); return; }
+  cb();
+}
+
+function showPage(page) {
+  // Check auth for game pages
+  const gamePages = ['slotPlay', 'slotPlay'];
+  if (!getUser() && page !== 'home' && page !== 'promo' && page !== 'admin' && page !== 'rules' && page !== 'hasil' && page !== 'history') {
+    showToast('Silakan login untuk bermain!', 'error');
+    return;
+  }
+  currentPage = page;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const el = document.getElementById('page' + page.charAt(0).toUpperCase() + page.slice(1));
+  if (el) el.classList.add('active');
+  
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  const navMap = {home:0,sport:2,slots:3,togel:4,casino:5,egames:6,promo:7,hasil:8,history:9};
+  const idx = navMap[page];
+  if (idx !== undefined) document.querySelectorAll('nav a')[idx].classList.add('active');
+  
+  if (page === 'history') renderHistory();
+  if (page === 'slots') renderSlotGames('all');
+  if (page === 'hasil') renderHasil();
+
+}
+
+// ═══════════════════════════════════════════════════════════════
+// CAROUSEL / SLIDER
+// ═══════════════════════════════════════════════════════════════
+let slideIndex = 0;
+const totalSlides = 3;
+
+function initSlider() {
+  const dots = document.getElementById('sliderDots');
+  dots.innerHTML = '';
+  for (let i = 0; i < totalSlides; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => goToSlide(i);
+    dots.appendChild(dot);
+  }
+}
+function goToSlide(n) {
+  slideIndex = n;
+  document.getElementById('sliderTrack').style.transform = 'translateX(-' + (slideIndex * 100) + '%)';
+  document.querySelectorAll('.slider-dot').forEach((d, i) => d.className = 'slider-dot' + (i === slideIndex ? ' active' : ''));
+}
+function slideNext() { goToSlide((slideIndex + 1) % totalSlides); }
+function slidePrev() { goToSlide((slideIndex - 1 + totalSlides) % totalSlides); }
+setInterval(slideNext, 5000);
+initSlider();
+
+// ═══════════════════════════════════════════════════════════════
+// TIMER
+// ═══════════════════════════════════════════════════════════════
+function updateTimer() {
+  const now = new Date();
+  const h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
+  document.getElementById('thr').textContent = h;
+  document.getElementById('tmin').textContent = m;
+  document.getElementById('tsec').textContent = s;
+  document.getElementById('tdsec').textContent = Math.floor(now.getMilliseconds() / 100);
+}
+setInterval(updateTimer, 100);
+updateTimer();
+
+// Tournament countdown (ends July 19, 2026)
+function updateTournamentTimer() {
+  const end = new Date('2026-07-19T23:59:59');
+  const now = new Date();
+  const diff = Math.max(0, end - now);
+  const d = Math.floor(diff / (1000*60*60*24));
+  const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+  const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+  const s = Math.floor((diff % (1000*60)) / 1000);
+  document.getElementById('tourDays').textContent = d;
+  document.getElementById('tourHours').textContent = h;
+  document.getElementById('tourMins').textContent = m;
+  document.getElementById('tourSecs').textContent = s;
+}
+setInterval(updateTournamentTimer, 1000);
+updateTournamentTimer();
+
+// ═══════════════════════════════════════════════════════════════
+// HOT GAMES (Providers)
+// ═══════════════════════════════════════════════════════════════
+const hotProviders = [
+  { name:'Pragmatic Play', icon:'🎰', color:'#f0b90b' },
+  { name:'PG Soft', icon:'🐯', color:'#e74c3c' },
+  { name:'Habanero', icon:'🌶️', color:'#2ecc71' },
+  { name:'Microgaming', icon:'🎲', color:'#3498db' },
+  { name:'Joker Gaming', icon:'🃏', color:'#9b59b6' },
+  { name:'Spade Gaming', icon:'♠️', color:'#e67e22' },
+  { name:'Playtech', icon:'🎯', color:'#1abc9c' },
+  { name:'Ion Casino', icon:'🎲', color:'#e84393' },
+  { name:'SBOBET', icon:'⚽', color:'#00b894' },
+  { name:'CQ9', icon:'🔮', color:'#6c5ce7' },
+  { name:'PlayStar', icon:'⭐', color:'#fdcb6e' },
+  { name:'RTG Slots', icon:'💎', color:'#e17055' },
+];
+
+function renderHotGames() {
+  const grid = document.getElementById('hotGamesGrid');
+  grid.innerHTML = hotProviders.map(p => `
+    <div class="provider-card" onclick="showPage('slots')">
+      <div class="p-icon" style="border-color:${p.color};box-shadow:0 0 10px ${p.color}33">${p.icon}</div>
+      <div class="p-name">${p.name}</div>
+    </div>
+  `).join('');
+}
+renderHotGames();
+
+// ═══════════════════════════════════════════════════════════════
+// MEGA JACKPOT
+// ═══════════════════════════════════════════════════════════════
+const jackpotItems = [
+  { name:'Mega Jackpot', icon:'💎', amount:'Rp 8,456,789,123' },
+  { name:'Grand Jackpot', icon:'👑', amount:'Rp 5,234,567,890' },
+  { name:'Major Jackpot', icon:'⭐', amount:'Rp 2,345,678,901' },
+  { name:'Mini Jackpot', icon:'💰', amount:'Rp 987,654,321' },
+  { name:'Daily Jackpot', icon:'🔥', amount:'Rp 456,789,012' },
+  { name:'Progressive', icon:'🎯', amount:'Rp 12,345,678,901' },
+];
+
+function renderJackpots() {
+  const grid = document.getElementById('jackpotGrid');
+  grid.innerHTML = jackpotItems.map(j => `
+    <div class="jp-item" onclick="showPage('slots')">
+      <div class="jp-item-icon">${j.icon}</div>
+      <div class="jp-item-name">${j.name}</div>
+      <div class="jp-item-amount">${j.amount}</div>
+    </div>
+  `).join('');
+}
+renderJackpots();
+
+// Mega jackpot auto increment
+setInterval(() => {
+  const el = document.getElementById('megaJackpot');
+  const raw = parseInt(el.textContent.replace(/[^\d]/g,'')) || 24956179799;
+  const newVal = raw + rand(100000, 5000000);
+  el.textContent = 'Rp ' + formatNum(newVal);
+  document.getElementById('sliderJackpot').textContent = 'Rp ' + formatNum(newVal);
+}, 4000);
+
+// ═══════════════════════════════════════════════════════════════
+// PLATFORM GRID
+// ═══════════════════════════════════════════════════════════════
+const platforms = [
+  'Pragmatic Play', 'PG Soft', 'Habanero', 'Microgaming',
+  'Joker', 'Playtech', 'SBOBET', 'Ion Casino',
+  'CQ9', 'Spade', 'RTG', 'PlayStar'
+];
+
+function renderPlatforms() {
+  const grid = document.getElementById('platformGrid');
+  grid.innerHTML = platforms.map(p => `
+    <div class="platform-item" onclick="showPage('slots')">
+      <div style="font-weight:600;font-size:10px;color:#fff">${p}</div>
+    </div>
+  `).join('');
+}
+renderPlatforms();
+
+// ═══════════════════════════════════════════════════════════════
+// SLOT GAMES LOBBY
+// ═══════════════════════════════════════════════════════════════
+const slotProviders = {
+  all: [
+    { name:'Sweet Bonanza', icon:'🍬', provider:'Pragmatic Play' },
+    { name:'Gates of Olympus', icon:'⚡', provider:'Pragmatic Play' },
+    { name:'Starlight Princess', icon:'🌙', provider:'Pragmatic Play' },
+    { name:'Aztec Gems', icon:'💎', provider:'Pragmatic Play' },
+    { name:'Mahjong Ways', icon:'🀄', provider:'PG Soft' },
+    { name:'Lucky Neko', icon:'🐱', provider:'PG Soft' },
+    { name:'Dragon Hatch', icon:'🐉', provider:'PG Soft' },
+    { name:'Wild Bandito', icon:'🤠', provider:'PG Soft' },
+    { name:'Koi Gate', icon:'🐟', provider:'Habanero' },
+    { name:'Hot Hot Fruit', icon:'🍇', provider:'Habanero' },
+    { name:'Fa Cai Shen', icon:'💰', provider:'Habanero' },
+    { name:'Mega Moolah', icon:'🦁', provider:'Microgaming' },
+    { name:'Immortal Romance', icon:'🧛', provider:'Microgaming' },
+    { name:'Thunderstruck II', icon:'⚡', provider:'Microgaming' },
+    { name:'777 Deluxe', icon:'7️⃣', provider:'Joker Gaming' },
+    { name:'Golden Dragon', icon:'🐉', provider:'Joker Gaming' },
+  ],
+  pragmatic: [
+    { name:'Sweet Bonanza', icon:'🍬', provider:'Pragmatic Play' },
+    { name:'Gates of Olympus', icon:'⚡', provider:'Pragmatic Play' },
+    { name:'Starlight Princess', icon:'🌙', provider:'Pragmatic Play' },
+    { name:'Aztec Gems', icon:'💎', provider:'Pragmatic Play' },
+    { name:'Wolf Gold', icon:'🐺', provider:'Pragmatic Play' },
+    { name:'The Dog House', icon:'🐕', provider:'Pragmatic Play' },
+  ],
+  pgsoft: [
+    { name:'Mahjong Ways', icon:'🀄', provider:'PG Soft' },
+    { name:'Lucky Neko', icon:'🐱', provider:'PG Soft' },
+    { name:'Dragon Hatch', icon:'🐉', provider:'PG Soft' },
+    { name:'Wild Bandito', icon:'🤠', provider:'PG Soft' },
+    { name:'Medusa II', icon:'🐍', provider:'PG Soft' },
+    { name:'Candy Burst', icon:'🍬', provider:'PG Soft' },
+  ],
+  habanero: [
+    { name:'Koi Gate', icon:'🐟', provider:'Habanero' },
+    { name:'Hot Hot Fruit', icon:'🍇', provider:'Habanero' },
+    { name:'Fa Cai Shen', icon:'💰', provider:'Habanero' },
+    { name:'Jump High', icon:'🐸', provider:'Habanero' },
+    { name:'Fortunate Five', icon:'🍀', provider:'Habanero' },
+  ],
+  microgaming: [
+    { name:'Mega Moolah', icon:'🦁', provider:'Microgaming' },
+    { name:'Immortal Romance', icon:'🧛', provider:'Microgaming' },
+    { name:'Thunderstruck II', icon:'⚡', provider:'Microgaming' },
+    { name:'Game of Thrones', icon:'👑', provider:'Microgaming' },
+    { name:'Avalon II', icon:'🗡️', provider:'Microgaming' },
+  ],
+};
+
+function renderSlotGames(provider) {
+  const games = slotProviders[provider] || slotProviders.all;
+  const grid = document.getElementById('slotGamesGrid');
+  grid.innerHTML = games.map(g => `
+    <div class="game-thumb" onclick="requireAuth(()=>showPage('slotPlay'))">
+      <div class="gt-icon">${g.icon}</div>
+      <div class="gt-name">${g.name}</div>
+      <div class="gt-desc">${g.provider}</div>
+    </div>
+  `).join('');
+}
+
+function switchSlotProvider(provider) {
+  document.querySelectorAll('#slotTabs .tab').forEach(t => t.classList.remove('active'));
+  const idx = { all:0, pragmatic:1, pgsoft:2, habanero:3, microgaming:4 };
+  const i = idx[provider];
+  if (i !== undefined) document.querySelectorAll('#slotTabs .tab')[i].classList.add('active');
+  renderSlotGames(provider);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SLOT MACHINE GAME
+// ═══════════════════════════════════════════════════════════════
+const slotSymbols = ['🍒','🍋','🍊','🍇','🔔','⭐','💎','👑'];
+const slotMultipliers = {
+  '🍒🍒🍒':3,'🍋🍋🍋':5,'🍊🍊🍊':8,'🍇🍇🍇':10,
+  '🔔🔔🔔':15,'⭐⭐⭐':25,'💎💎💎':50,'👑👑👑':100
+};
+let slotSpinning = false;
+
+function playSlot() {
+  const u = getUser();
+  if (!u) { showToast('Login dulu!','error'); return; }
+  if (slotSpinning) return;
+  const bet = parseInt(document.getElementById('slotBet').value) || 100;
+  if (bet < 100) { showToast('Minimal taruhan Rp 100!','error'); return; }
+  if ((u.balance||0) < bet) { showToast('Saldo tidak mencukupi!','error'); return; }
+
+  slotSpinning = true;
+  document.getElementById('slotBtn').disabled = true;
+  document.getElementById('slotBtn').textContent = '⏳ SPINNING...';
+  document.getElementById('slotResult').style.display = 'none';
+
+  [1,2,3].forEach(i => document.getElementById('slotReel'+i).classList.add('spinning'));
+  u.balance -= bet;
+  saveUsers(); renderUser();
+
+  let count = 0;
+  const si = setInterval(() => {
+    [1,2,3].forEach(i => document.getElementById('slotSym'+i).textContent = slotSymbols[rand(0,slotSymbols.length-1)]);
+    count++;
+    if (count > 12) {
+      clearInterval(si);
+      [1,2,3].forEach(i => document.getElementById('slotReel'+i).classList.remove('spinning'));
+      const r = [1,2,3].map(() => slotSymbols[rand(0,slotSymbols.length-1)]);
+      [1,2,3].forEach(i => document.getElementById('slotSym'+i).textContent = r[i-1]);
+      const combo = r.join('');
+      let win = 0, msg = '';
+
+      if (slotMultipliers[combo]) {
+        win = bet * slotMultipliers[combo];
+        msg = '🎉 JACKPOT! ' + combo + ' = ' + slotMultipliers[combo] + 'x!';
+      } else if (r[0] === r[1] && r[1] === r[2]) {
+        win = Math.floor(bet * 2);
+        msg = '🔥 Three of a kind! +Rp ' + formatNum(win);
+      } else if (r[0] === r[1] || r[1] === r[2]) {
+        win = Math.floor(bet * 1.5);
+        msg = '👍 Two match! Dapat Rp ' + formatNum(win);
+      } else {
+        msg = '😅 Coba lagi!';
+      }
+
+      if (win > 0) { u.balance += win; msg = '🎉 ' + msg; }
+
+      const el = document.getElementById('slotResult');
+      el.style.display = 'flex';
+      el.innerHTML = `<div class="result-text">${msg}</div>
+        ${win > 0 ? `<div class="result-amount win">+Rp ${formatNum(win)}</div>` : `<div class="result-amount lose">-Rp ${formatNum(bet)}</div>`}`;
+      addHistory('slot', win > 0 ? 'win' : 'lose', bet, win > 0 ? win : -bet);
+      saveUsers(); renderUser();
+      slotSpinning = false;
+      document.getElementById('slotBtn').disabled = false;
+      document.getElementById('slotBtn').textContent = '🎰 PUTAR';
+    }
+  }, 80);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// TOGEL / LOTTERY
+// ═══════════════════════════════════════════════════════════════
+let togelPicks = [null, null, null, null];
+let togelType = '4d';
+
+function switchTogelType(type) {
+  togelType = type;
+  const tabMap = { '4d':0, '3d':1, '2d':2 };
+  document.querySelectorAll('#togelTabs .tab').forEach(t => t.classList.remove('active'));
+  const i = tabMap[type];
+  if (i !== undefined) document.querySelectorAll('#togelTabs .tab')[i].classList.add('active');
+  initTogelPick();
+}
+
+function initTogelPick() {
+  togelPicks = [null, null, null, null];
+  const digits = togelType === '4d' ? 4 : togelType === '3d' ? 3 : 2;
+  for (let d = 0; d < 4; d++) {
+    const container = document.getElementById('togelPick' + (d+1));
+    container.innerHTML = '';
+    if (d < digits) {
+      for (let n = 0; n <= 9; n++) {
+        const btn = document.createElement('button');
+        btn.className = 'togel-pick-btn';
+        btn.textContent = n;
+        btn.dataset.digit = d;
+        btn.dataset.num = n;
+        btn.onclick = function() {
+          const digit = parseInt(this.dataset.digit);
+          const num = parseInt(this.dataset.num);
+          togelPicks[digit] = num;
+          document.querySelectorAll('#togelPick' + (digit+1) + ' .togel-pick-btn').forEach(b => b.classList.remove('selected'));
+          this.classList.add('selected');
+        };
+        container.appendChild(btn);
+      }
+    } else {
+      container.innerHTML = '<span style="color:var(--text-dark);font-size:20px">-</span>';
+    }
+  }
+}
+
+function playTogel() {
+  const u = getUser();
+  if (!u) { showToast('Login dulu!','error'); return; }
+  const bet = parseInt(document.getElementById('togelBet').value) || 100;
+  if (bet < 100) { showToast('Minimal taruhan Rp 100!','error'); return; }
+  if ((u.balance||0) < bet) { showToast('Saldo tidak mencukupi!','error'); return; }
+
+  // Check picks
+  const digits = togelType === '4d' ? 4 : togelType === '3d' ? 3 : 2;
+  for (let i = 0; i < digits; i++) {
+    if (togelPicks[i] === null) { showToast('Pilih semua angka!','error'); return; }
+  }
+
+  u.balance -= bet;
+  document.getElementById('togelResultDisplay').style.display = 'none';
+  document.getElementById('togelBtn').disabled = true;
+  document.getElementById('togelBtn').textContent = '⏳ MENGUNDI...';
+
+  // Animate
+  let animCount = 0;
+  const anim = setInterval(() => {
+    [1,2,3,4].forEach(i => {
+      document.getElementById('togelB' + i).textContent = rand(0,9);
+    });
+    animCount++;
+    if (animCount > 15) {
+      clearInterval(anim);
+      const results = [rand(0,9), rand(0,9), rand(0,9), rand(0,9)];
+      [1,2,3,4].forEach(i => document.getElementById('togelB' + i).textContent = results[i-1]);
+
+      // Check win
+      let match = 0;
+      for (let i = 0; i < digits; i++) {
+        if (togelPicks[i] === results[i]) match++;
+      }
+
+      const multipliers = { 4: 3000, 3: 300, 2: 30 };
+      const wMultiplier = multipliers[digits] || 0;
+      let win = 0, msg = '';
+
+      if (match === digits) {
+        win = bet * wMultiplier;
+        msg = '🎉 JACKPOT! Angka tepat! +Rp ' + formatNum(win);
+      } else if (match >= digits - 1 && match > 0) {
+        win = Math.floor(bet * (wMultiplier / 10));
+        msg = '👍 ' + match + ' angka cocok! +Rp ' + formatNum(win);
+      } else {
+        msg = '😅 Belum beruntung! -Rp ' + formatNum(bet);
+      }
+
+      if (win > 0) u.balance += win;
+
+      const el = document.getElementById('togelResultDisplay');
+      el.style.display = 'flex';
+      const resStr = results.slice(0, digits).join(' ');
+      const pickStr = togelPicks.slice(0, digits).join(' ');
+      el.innerHTML = `<div class="result-text">Hasil: ${resStr}</div>
+        <div style="font-size:12px;color:var(--text-dark);margin-bottom:4px">Angka Anda: ${pickStr}</div>
+        <div class="result-amount ${win > 0 ? 'win' : 'lose'}">${msg}</div>`;
+      
+      addHistory('togel', win > 0 ? 'win' : 'lose', bet, win > 0 ? win : -bet);
+      saveUsers(); renderUser();
+      document.getElementById('togelBtn').disabled = false;
+      document.getElementById('togelBtn').textContent = '🔮 PASANG';
+    }
+  }, 100);
+}
+
+initTogelPick();
+
+// ═══════════════════════════════════════════════════════════════
+// LIVE CASINO
+// ═══════════════════════════════════════════════════════════════
+const casinoGames = [
+  { name:'Baccarat', icon:'🃏', dealer:'👩‍💼', desc:'Baccarat Live' },
+  { name:'Roulette', icon:'🎡', dealer:'👨‍💼', desc:'Roulette Live' },
+  { name:'Blackjack', icon:'🃏', dealer:'👩‍💼', desc:'Blackjack Live' },
+  { name:'Sic Bo', icon:'🎲', dealer:'👨‍💼', desc:'Sic Bo Live' },
+  { name:'Dragon Tiger', icon:'🐉', dealer:'👩‍💼', desc:'Dragon Tiger Live' },
+  { name:'Baccarat A', icon:'🃏', dealer:'👩‍💼', desc:'Baccarat Speed' },
+];
+
+function renderCasino() {
+  const grid = document.getElementById('casinoGrid');
+  grid.innerHTML = casinoGames.map(g => `
+    <div class="casino-table" onclick="requireAuth(()=>openCasinoGame('${g.name}','${g.dealer}'))">
+      <div class="ct-dealer">${g.dealer}</div>
+      <div class="ct-icon" style="font-size:28px;margin-bottom:4px">${g.icon}</div>
+      <div class="ct-name">${g.name}</div>
+      <div class="ct-desc" style="font-size:9px;color:var(--text-dark)">${g.desc}</div>
+      <div class="ct-status"><span class="live-dot"></span> LIVE</div>
+    </div>
+  `).join('');
+}
+
+function openCasinoGame(name) {
+  document.getElementById('casinoGameName').textContent = name;
+  document.getElementById('casinoGameArea').style.display = 'block';
+  document.getElementById('casinoResult').style.display = 'none';
+  document.getElementById('casinoPlayer').textContent = '?';
+  document.getElementById('casinoBanker').textContent = '?';
+}
+
+function playCasino(betOn) {
+  const u = getUser();
+  if (!u) { showToast('Login dulu!','error'); return; }
+  const bet = parseInt(document.getElementById('casinoBet').value) || 100;
+  if (bet < 100) { showToast('Minimal taruhan Rp 100!','error'); return; }
+  if ((u.balance||0) < bet) { showToast('Saldo tidak mencukupi!','error'); return; }
+
+  u.balance -= bet;
+  document.getElementById('casinoResult').style.display = 'none';
+  document.getElementById('casinoPlayer').textContent = '...';
+  document.getElementById('casinoBanker').textContent = '...';
+
+  setTimeout(() => {
+    const pVal = rand(0, 9);
+    const bVal = rand(0, 9);
+    document.getElementById('casinoPlayer').textContent = pVal;
+    document.getElementById('casinoBanker').textContent = bVal;
+
+    let win = false, multiplier = 0;
+    if (betOn === 'player' && pVal > bVal) { win = true; multiplier = 2; }
+    else if (betOn === 'banker' && bVal > pVal) { win = true; multiplier = 1.95; }
+    else if (betOn === 'tie' && pVal === bVal) { win = true; multiplier = 9; }
+
+    let wAmount = 0, msg = '';
+    if (win) {
+      wAmount = Math.floor(bet * multiplier);
+      u.balance += wAmount;
+      msg = '🎉 Menang! +Rp ' + formatNum(wAmount);
+    } else if (pVal === bVal && betOn !== 'tie') {
+      u.balance += bet; // Push
+      msg = '🤝 Seri! Saldo dikembalikan';
+    } else {
+      msg = '😅 Kalah! -Rp ' + formatNum(bet);
+    }
+
+    const el = document.getElementById('casinoResult');
+    el.style.display = 'flex';
+    el.innerHTML = `<div class="result-text">${msg}</div>
+      <div style="font-size:12px;color:var(--text-dark)">Player: ${pVal} | Banker: ${bVal}</div>`;
+
+    addHistory('casino', win ? 'win' : 'lose', bet, win ? wAmount : -bet);
+    saveUsers(); renderUser();
+  }, 1000);
+}
+
+renderCasino();
+
+// ═══════════════════════════════════════════════════════════════
+// E-GAMES
+// ═══════════════════════════════════════════════════════════════
+const egames = [
+  { name:'Dadu Online', icon:'🎲', desc:'Tebak angka dadu 1.9x' },
+  { name:'Roda Keberuntungan', icon:'🎡', desc:'Putar roda hingga 10x' },
+  { name:'Batu Kertas Gunting', icon:'✂️', desc:'Kalahkan komputer 1.9x' },
+  { name:'Memory Card', icon:'🃏', desc:'Cocokkan kartu menang' },
+  { name:'Tembak Ikan', icon:'🐟', desc:'Tembak ikan dapat bonus' },
+  { name:'Poker', icon:'🃏', desc:'Poker Online klasik' },
+  { name:'Domino', icon:'🀄', desc:'Domino Qiu Qiu' },
+  { name:'Adu Balap', icon:'🏎️', desc:'Balap kuda & motor' },
+];
+
+function renderEgames() {
+  const grid = document.getElementById('egameGrid');
+  grid.innerHTML = egames.map(g => {
+    let action = '';
+    if (g.name === 'Dadu Online') action = "showPage('dice')";
+    else if (g.name === 'Roda Keberuntungan') action = "showPage('wheel')";
+    else if (g.name === 'Batu Kertas Gunting') action = "showPage('rps')";
+    else if (g.name === 'Memory Card') action = "showPage('memory')";
+    else action = "showToast('Coming soon!','info')";
+    return `
+      <div class="egame-card" onclick="requireAuth(()=>${action})">
+        <div class="eg-icon">${g.icon}</div>
+        <div class="eg-name">${g.name}</div>
+        <div class="eg-desc">${g.desc}</div>
+      </div>
+    `;
+  }).join('');
+}
+renderEgames();
+
+// ═══════════════════════════════════════════════════════════════
+// E-GAME: DICE
+// ═══════════════════════════════════════════════════════════════
+// Add dice and wheel pages dynamically
+const dicePage = document.createElement('div');
+dicePage.className = 'page';
+dicePage.id = 'pageDice';
+dicePage.innerHTML = `
+  <div class="game-area">
+    <h2>🎲 Dadu Online</h2>
+    <p class="g-sub">Tebak High (4-6) atau Low (1-3)</p>
+    <div class="dice-container"><div class="dice" id="diceDisplay">🎲</div></div>
+    <div class="dice-buttons">
+      <button class="btn-low" onclick="playDice('low')">⬇️ LOW (1-3)</button>
+      <button class="btn-high" onclick="playDice('high')">⬆️ HIGH (4-6)</button>
+    </div>
+    <div class="bet-control">
+      <label>Taruhan:</label>
+      <input type="number" id="diceBet" value="1000" min="100" step="100">
+      <div class="chips">
+        <button class="chip" onclick="setBet('diceBet',100)">100</button>
+        <button class="chip" onclick="setBet('diceBet',500)">500</button>
+        <button class="chip" onclick="setBet('diceBet',1000)">1K</button>
+        <button class="chip" onclick="setBet('diceBet',5000)">5K</button>
+      </div>
+    </div>
+    <div class="game-result" id="diceResult" style="display:none"></div>
+    <div style="text-align:center;margin-top:8px">
+      <button class="btn btn-outline btn-sm" onclick="showPage('egames')">← Kembali</button>
+    </div>
+  </div>
+`;
+document.querySelector('.container').appendChild(dicePage);
+
+function playDice(prediction) {
+  const u = getUser();
+  if (!u) { showToast('Login dulu!','error'); return; }
+  const bet = parseInt(document.getElementById('diceBet').value) || 100;
+  if (bet < 100) { showToast('Minimal taruhan Rp 100!','error'); return; }
+  if ((u.balance||0) < bet) { showToast('Saldo tidak mencukupi!','error'); return; }
+
+  u.balance -= bet;
+  document.getElementById('diceResult').style.display = 'none';
+  const de = document.getElementById('diceDisplay');
+  de.className = 'dice rolling';
+
+  setTimeout(() => {
+    const v = rand(1,6);
+    const e = ['','⚀','⚁','⚂','⚃','⚄','⚅'];
+    de.textContent = e[v];
+    de.className = 'dice';
+    const h = v >= 4;
+    const c = (prediction === 'high' && h) || (prediction === 'low' && !h);
+    let win = 0;
+    if (c) { win = Math.floor(bet * 1.9); u.balance += win; }
+
+    const el = document.getElementById('diceResult');
+    el.style.display = 'flex';
+    el.innerHTML = `<div style="font-size:42px;margin-bottom:6px">${e[v]}</div>
+      <div class="result-text">Dadu: ${v}</div>
+      ${c ? '<div class="result-amount win">🎉 Tebakan benar! +Rp ' + formatNum(win) + '</div>'
+          : '<div class="result-amount lose">😅 -Rp ' + formatNum(bet) + '</div>'}`;
+    addHistory('dice', c ? 'win' : 'lose', bet, c ? win : -bet);
+    saveUsers(); renderUser();
+  }, 600);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// E-GAME: WHEEL
+// ═══════════════════════════════════════════════════════════════
+const wheelPage = document.createElement('div');
+wheelPage.className = 'page';
+wheelPage.id = 'pageWheel';
+wheelPage.innerHTML = `
+  <div class="game-area">
+    <h2>🎡 Roda Keberuntungan</h2>
+    <p class="g-sub">Putar roda dan raih hingga 10x!</p>
+    <div class="wheel-wrap">
+      <div class="wheel-pointer">▼</div>
+      <canvas class="wheel-canvas" id="wheelCanvas" width="250" height="250"></canvas>
+      <button class="wheel-spin-btn" id="wheelSpinBtn" onclick="spinWheel()">PUTAR</button>
+    </div>
+    <div class="bet-control">
+      <label>Taruhan:</label>
+      <input type="number" id="wheelBet" value="1000" min="100" step="100">
+      <div class="chips">
+        <button class="chip" onclick="setBet('wheelBet',100)">100</button>
+        <button class="chip" onclick="setBet('wheelBet',500)">500</button>
+        <button class="chip" onclick="setBet('wheelBet',1000)">1K</button>
+        <button class="chip" onclick="setBet('wheelBet',5000)">5K</button>
+      </div>
+    </div>
+    <div class="game-result" id="wheelResult" style="display:none"></div>
+    <div style="text-align:center;margin-top:8px">
+      <button class="btn btn-outline btn-sm" onclick="showPage('egames')">← Kembali</button>
+    </div>
+  </div>
+`;
+document.querySelector('.container').appendChild(wheelPage);
+
+const wheelSegments = [0,1,2,3,5,10,0,2,1,3,0,5,2,1,3,0];
+const wheelColors = ['#e74c3c','#f39c12','#2ecc71','#3498db','#9b59b6','#f0b90b','#e74c3c','#f39c12','#2ecc71','#3498db','#e74c3c','#9b59b6','#f39c12','#2ecc71','#3498db','#e74c3c'];
+let wheelAngle = 0, wheelSpinning = false;
+
+function drawWheel() {
+  const cv = document.getElementById('wheelCanvas'), ctx = cv.getContext('2d');
+  const cx=125, cy=125, rad=115, segs=wheelSegments.length, sa=(2*Math.PI)/segs;
+  ctx.clearRect(0,0,250,250);
+  for(let i=0;i<segs;i++){
+    const s=wheelAngle+i*sa, e=s+sa;
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,rad,s,e); ctx.closePath();
+    ctx.fillStyle=wheelColors[i%wheelColors.length]; ctx.fill();
+    ctx.strokeStyle='#1e2a45'; ctx.lineWidth=2; ctx.stroke();
+    ctx.save(); ctx.translate(cx,cy); ctx.rotate(s+sa/2); ctx.textAlign='center';
+    ctx.fillStyle='#fff'; ctx.font='bold 13px Poppins';
+    ctx.shadowColor='rgba(0,0,0,0.5)'; ctx.shadowBlur=3;
+    ctx.fillText(wheelSegments[i]+'x', rad*0.62, 4); ctx.restore();
+  }
+  ctx.beginPath(); ctx.arc(cx,cy,16,0,2*Math.PI);
+  ctx.fillStyle='#131a2b'; ctx.fill();
+  ctx.strokeStyle='#f0b90b'; ctx.lineWidth=3; ctx.stroke();
+}
+
+function spinWheel() {
+  const u = getUser();
+  if (!u || wheelSpinning) return;
+  const bet = parseInt(document.getElementById('wheelBet').value) || 100;
+  if (bet < 100 || (u.balance||0) < bet) { showToast('Saldo tidak mencukupi!','error'); return; }
+
+  wheelSpinning = true;
+  document.getElementById('wheelSpinBtn').disabled = true;
+  u.balance -= bet;
+  document.getElementById('wheelResult').style.display = 'none';
+
+  const sp = 5+Math.random()*5, ta = wheelAngle+sp*2*Math.PI+Math.random()*2*Math.PI, st=wheelAngle, dr=3000, t0=Date.now();
+  (function an(){
+    const p=Math.min((Date.now()-t0)/dr,1), e=1-Math.pow(1-p,3);
+    wheelAngle=st+(ta-st)*e; drawWheel();
+    if(p<1) requestAnimationFrame(an);
+    else {
+      wheelAngle=ta%(2*Math.PI); drawWheel();
+      let pa = (2*Math.PI-((ta%(2*Math.PI))+Math.PI/2+Math.PI/wheelSegments.length))%(2*Math.PI);
+      if(pa<0) pa+=2*Math.PI;
+      const idx=Math.floor(pa/(2*Math.PI/wheelSegments.length))%wheelSegments.length, ml=wheelSegments[idx];
+      let win=0;
+      if(ml>0){ win=bet*ml; u.balance+=win; }
+      const el=document.getElementById('wheelResult');
+      el.style.display='flex';
+      el.innerHTML=`<div class="result-text">${ml>0?'🎉 '+ml+'x!':'😅 0x...'}</div>
+        ${ml>0?'<div class="result-amount win">+Rp '+formatNum(win)+'</div>':'<div class="result-amount lose">-Rp '+formatNum(bet)+'</div>'}`;
+      addHistory('wheel',win>0?'win':'lose',bet,win>0?win:-bet);
+      saveUsers(); renderUser();
+      wheelSpinning=false; document.getElementById('wheelSpinBtn').disabled=false;
+    }
+  })();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// E-GAME: RPS
+// ═══════════════════════════════════════════════════════════════
+const rpsPage = document.createElement('div');
+rpsPage.className = 'page';
+rpsPage.id = 'pageRps';
+rpsPage.innerHTML = `
+  <div class="game-area">
+    <h2>✂️ Batu Kertas Gunting</h2>
+    <p class="g-sub">Kalahkan komputer!</p>
+    <div style="display:flex;justify-content:center;align-items:center;gap:24px;margin-bottom:10px">
+      <div style="text-align:center"><div style="font-size:40px" id="rpsPlayer">🧑</div><div style="font-size:10px;color:var(--text-dark)">Kamu</div></div>
+      <div style="font-size:24px;font-weight:900;color:var(--gold)">VS</div>
+      <div style="text-align:center"><div style="font-size:40px" id="rpsComp">🤖</div><div style="font-size:10px;color:var(--text-dark)">Komputer</div></div>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:center;margin-bottom:10px">
+      <button class="" style="width:60px;height:60px;border-radius:50%;border:2px solid var(--border);background:var(--bg-card);font-size:28px;cursor:pointer;transition:0.3s" onclick="playRps('batu')">✊</button>
+      <button class="" style="width:60px;height:60px;border-radius:50%;border:2px solid var(--border);background:var(--bg-card);font-size:28px;cursor:pointer;transition:0.3s" onclick="playRps('kertas')">✋</button>
+      <button class="" style="width:60px;height:60px;border-radius:50%;border:2px solid var(--border);background:var(--bg-card);font-size:28px;cursor:pointer;transition:0.3s" onclick="playRps('gunting')">✂️</button>
+    </div>
+    <div class="bet-control">
+      <label>Taruhan:</label>
+      <input type="number" id="rpsBet" value="1000" min="100" step="100">
+    </div>
+    <div class="game-result" id="rpsResult" style="display:none"></div>
+    <div style="text-align:center;margin-top:8px">
+      <button class="btn btn-outline btn-sm" onclick="showPage('egames')">← Kembali</button>
+    </div>
+  </div>
+`;
+document.querySelector('.container').appendChild(rpsPage);
+
+function playRps(choice) {
+  const u = getUser();
+  if (!u) { showToast('Login dulu!','error'); return; }
+  const bet = parseInt(document.getElementById('rpsBet').value) || 100;
+  if (bet < 100 || (u.balance||0) < bet) { showToast('Saldo tidak mencukupi!','error'); return; }
+
+  u.balance -= bet;
+  document.getElementById('rpsResult').style.display = 'none';
+
+  const choices = ['batu','kertas','gunting'];
+  const cc = choices[rand(0,2)];
+  const em = { batu:'✊', kertas:'✋', gunting:'✂️' };
+  document.getElementById('rpsPlayer').textContent = em[choice];
+  document.getElementById('rpsComp').textContent = em[cc];
+
+  let r, win = 0;
+  if (choice === cc) { r='draw'; u.balance+=bet; }
+  else if ((choice==='batu'&&cc==='gunting')||(choice==='kertas'&&cc==='batu')||(choice==='gunting'&&cc==='kertas')) { r='win'; win=Math.floor(bet*1.9); u.balance+=win; }
+  else { r='lose'; }
+
+  const el = document.getElementById('rpsResult');
+  el.style.display = 'flex';
+  if (r === 'win') el.innerHTML = '<div class="result-text">🎉 Menang!</div><div class="result-amount win">+Rp '+formatNum(win)+'</div>';
+  else if (r === 'lose') el.innerHTML = '<div class="result-text">😅 Kalah!</div><div class="result-amount lose">-Rp '+formatNum(bet)+'</div>';
+  else el.innerHTML = '<div class="result-text">🤝 Seri!</div><div class="result-amount" style="color:var(--gold)">+Rp 0</div>';
+  addHistory('rps', r==='win'?'win':r==='lose'?'lose':'draw', bet, r==='win'?win:r==='lose'?-bet:0);
+  saveUsers(); renderUser();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// E-GAME: MEMORY CARDS
+// ═══════════════════════════════════════════════════════════════
+const memPage = document.createElement('div');
+memPage.className = 'page';
+memPage.id = 'pageMemory';
+memPage.innerHTML = `
+  <div class="game-area">
+    <h2>🃏 Memory Card</h2>
+    <p class="g-sub">Cocokkan kartu!</p>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:300px;margin:0 auto 12px" id="memGrid"></div>
+    <div style="text-align:center;margin-bottom:8px">
+      <span style="color:var(--text-dark);font-size:12px">Upaya: <strong style="color:#fff" id="memAttempts">0</strong></span>
+      <span style="margin:0 8px;color:#444">|</span>
+      <span style="color:var(--text-dark);font-size:12px">Cocok: <strong style="color:var(--green)" id="memMatched">0</strong>/8</span>
+    </div>
+    <div style="text-align:center;margin-bottom:8px">
+      <button class="btn btn-sm btn-gold" onclick="initMemory()">🔄 Mulai Baru</button>
+    </div>
+    <div class="game-result" id="memResult" style="display:none"></div>
+    <div style="text-align:center;margin-top:8px">
+      <button class="btn btn-outline btn-sm" onclick="showPage('egames')">← Kembali</button>
+    </div>
+  </div>
+`;
+document.querySelector('.container').appendChild(memPage);
+
+let memState = [], memFlipped = [], memMatched = [], memAttempts = 0, memLock = false;
+const memEmojis = ['🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼'];
+let memEntryPaid = false;
+
+function initMemory() {
+  memAttempts = 0; memMatched = []; memFlipped = []; memLock = false;
+  memEntryPaid = false;
+  document.getElementById('memResult').style.display = 'none';
+  document.getElementById('memAttempts').textContent = '0';
+  document.getElementById('memMatched').textContent = '0/8';
+  let e = [...memEmojis, ...memEmojis];
+  for (let i = e.length-1; i > 0; i--) { const j = rand(0,i); [e[i],e[j]] = [e[j],e[i]]; }
+  memState = e;
+  const grid = document.getElementById('memGrid');
+  grid.innerHTML = '';
+  memState.forEach((em, idx) => {
+    const d = document.createElement('div');
+    d.style.cssText = 'aspect-ratio:1;background:linear-gradient(135deg,#f8f0e8,#efe6dc);border:2px solid #d4c5b5;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;transition:0.3s';
+    d.dataset.idx = idx;
+    d.onclick = () => flipMem(idx);
+    grid.appendChild(d);
+  });
+}
+
+function flipMem(idx) {
+  if (memLock || memFlipped.includes(idx) || memMatched.includes(idx)) return;
+  const u = getUser();
+  if (!u) { showToast('Login dulu!','error'); return; }
+  if (memFlipped.length === 0 && memMatched.length === 0 && !memEntryPaid) {
+    if ((u.balance||0) < 50) { showToast('Saldo tidak cukup (min Rp 50)!','error'); return; }
+    u.balance -= 50; memEntryPaid = true; saveUsers(); renderUser();
+  }
+
+  memFlipped.push(idx);
+  const cards = document.querySelectorAll('#memGrid > div');
+  cards[idx].textContent = memState[idx];
+  cards[idx].style.borderColor = 'var(--gold)';
+  cards[idx].style.background = 'linear-gradient(135deg,#ffffff,#f8f0e8)';
+
+  if (memFlipped.length === 2) {
+    memLock = true; memAttempts++;
+    document.getElementById('memAttempts').textContent = memAttempts;
+    const [a,b] = memFlipped;
+    if (memState[a] === memState[b]) {
+      memMatched.push(a,b);
+      cards[a].style.borderColor = 'var(--green)'; cards[a].style.opacity = '0.6';
+      cards[b].style.borderColor = 'var(--green)'; cards[b].style.opacity = '0.6';
+      document.getElementById('memMatched').textContent = memMatched.length/2 + '/8';
+      memFlipped = []; memLock = false;
+      if (memMatched.length === memState.length) {
+        let w = 200;
+        if (memAttempts <= 8) w *= 2;
+        else if (memAttempts <= 12) w = Math.floor(w * 1.5);
+        u.balance += w;
+        addHistory('memory', 'win', 0, w);
+        saveUsers(); renderUser();
+        document.getElementById('memResult').style.display = 'flex';
+        document.getElementById('memResult').innerHTML = '<div class="result-text">🎉 Semua cocok!</div><div class="result-amount win">+Rp '+formatNum(w)+'</div>';
+      }
+    } else {
+      setTimeout(() => {
+        cards[a].textContent = ''; cards[a].style.borderColor = 'var(--border)';
+        cards[a].style.background = 'linear-gradient(135deg,#f8f0e8,#efe6dc)';
+        cards[b].textContent = ''; cards[b].style.borderColor = '#d4c5b5';
+        cards[b].style.background = 'linear-gradient(135deg,#f8f0e8,#efe6dc)';
+        memFlipped = []; memLock = false;
+      }, 800);
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SPORTSBOOK
+// ═══════════════════════════════════════════════════════════════
+const sportMatches = {
+  soccer: [
+    { team1:'Manchester United', team2:'Liverpool', odds1:2.10, oddsD:3.30, odds2:3.40 },
+    { team1:'Barcelona', team2:'Real Madrid', odds1:2.20, oddsD:3.20, odds2:2.90 },
+    { team1:'Bayern Munich', team2:'Borussia Dortmund', odds1:1.80, oddsD:3.50, odds2:4.00 },
+    { team1:'Juventus', team2:'AC Milan', odds1:2.40, oddsD:3.10, odds2:2.70 },
+    { team1:'PSG', team2:'Marseille', odds1:1.90, oddsD:3.40, odds2:3.60 },
+    { team1:'Arsenal', team2:'Chelsea', odds1:2.30, oddsD:3.15, odds2:2.80 },
+  ],
+  basketball: [
+    { team1:'LA Lakers', team2:'Boston Celtics', odds1:2.00, oddsD:0, odds2:1.80 },
+    { team1:'Golden State', team2:'Miami Heat', odds1:1.85, oddsD:0, odds2:1.95 },
+    { team1:'Chicago Bulls', team2:'New York Knicks', odds1:2.20, oddsD:0, odds2:1.65 },
+  ],
+  tennis: [
+    { team1:'Djokovic N.', team2:'Alcaraz C.', odds1:1.75, oddsD:0, odds2:2.10 },
+    { team1:'Sinner J.', team2:'Medvedev D.', odds1:1.90, oddsD:0, odds2:1.95 },
+    { team1:'Nadal R.', team2:'Federer R.', odds1:2.50, oddsD:0, odds2:1.55 },
+  ],
+};
+
+function renderSportMatches(league) {
+  const matches = league === 'all' 
+    ? Object.values(sportMatches).flat()
+    : sportMatches[league] || [];
+  const el = document.getElementById('sportMatches');
+  el.innerHTML = matches.map(m => `
+    <div class="sport-match" onclick="requireAuth(()=>showToast('Pertandingan dipilih!','success'))">
+      <div class="teams">
+        <span class="team">${m.team1}</span>
+        <span class="vs">vs</span>
+        <span class="team">${m.team2}</span>
+      </div>
+      <div class="odds">
+        <div class="odd">${m.odds1.toFixed(2)}</div>
+        ${m.oddsD > 0 ? `<div class="odd">${m.oddsD.toFixed(2)}</div>` : ''}
+        <div class="odd">${m.odds2.toFixed(2)}</div>
+      </div>
+    </div>
+  `).join('');
+  if (matches.length === 0) {
+    el.innerHTML = '<div class="empty-state"><div class="e-icon">⚽</div><div class="e-text">Tidak ada pertandingan</div></div>';
+  }
+}
+
+function switchSportLeague(league) {
+  document.querySelectorAll('#sportTabs .tab').forEach(t => t.classList.remove('active'));
+  const idx = { all:0, soccer:1, basketball:2, tennis:3 };
+  const i = idx[league];
+  if (i !== undefined) document.querySelectorAll('#sportTabs .tab')[i].classList.add('active');
+  renderSportMatches(league);
+}
+
+renderSportMatches('all');
+
+// ═══════════════════════════════════════════════════════════════
+// HASIL KELUARAN
+// ═══════════════════════════════════════════════════════════════
+function renderHasil() {
+  const el = document.getElementById('hasilList');
+  const results = [];
+  for (let i = 0; i < 10; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    results.push({
+      date: d.toLocaleDateString('id-ID'),
+      numbers: [rand(0,9), rand(0,9), rand(0,9), rand(0,9)],
+    });
+  }
+  el.innerHTML = results.map(r => `
+    <div class="history-item">
+      <span class="h-game">📅 ${r.date}</span>
+      <span style="font-size:16px;letter-spacing:4px;font-weight:700;color:var(--gold)">${r.numbers.join(' ')}</span>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// AUTH SYSTEM
+// ═══════════════════════════════════════════════════════════════
+function openModal(type) {
+  const o = document.getElementById('modalOverlay');
+  const c = document.getElementById('modalContent');
+  o.classList.add('show');
+
+  if (type === 'login') {
+    c.innerHTML = '<h2>🔐 Masuk</h2><p class="m-sub">Masuk ke akun GAWANG69</p><div class="form-group"><label>Username</label><input type="text" id="loginUser" placeholder="Username"></div><div class="form-group"><label>Password</label><input type="password" id="loginPass" placeholder="Password"></div><button class="btn-submit" style="background:linear-gradient(135deg,var(--gold),#ff6b35);color:#000" onclick="doLogin()">Masuk</button><p style="text-align:center;margin-top:10px;font-size:11px;color:#555">Belum punya akun? <a href="#" style="color:var(--gold)" onclick="openModal(\'register\')">Daftar</a></p>';
+  } else if (type === 'register') {
+    c.innerHTML = '<h2>✨ Daftar Akun</h2><p class="m-sub">Bergabung di GAWANG69!</p><div class="form-group"><label>Username</label><input type="text" id="regUser" placeholder="Pilih username"></div><div class="form-group"><label>Password</label><input type="password" id="regPass" placeholder="Buat password"></div><div class="form-group"><label>Konfirmasi Password</label><input type="password" id="regPass2" placeholder="Ulangi password"></div><button class="btn-submit" style="background:linear-gradient(135deg,var(--green),#27ae60);color:#fff" onclick="doRegister()">Daftar</button><p style="text-align:center;margin-top:10px;font-size:11px;color:#555">Sudah punya akun? <a href="#" style="color:var(--gold)" onclick="openModal(\'login\')">Login</a></p>';
+  } else if (type === 'deposit') {
+    if (!getUser()) { showToast('Login dulu!','error'); closeModal(); return; }
+    c.innerHTML = '<h2>💳 Deposit</h2><p class="m-sub">Transfer ke rekening di bawah</p><div style="background:#0d1520;border:1px solid var(--gold);border-radius:8px;padding:14px;margin-bottom:14px;text-align:center"><div style="font-size:12px;color:#aaa">Bank BCA</div><div style="font-size:20px;font-weight:900;color:var(--gold);margin:4px 0;letter-spacing:2px">8800-1234-5678</div><div style="font-size:10px;color:#555">a/n PT GAWANG69</div></div><div class="form-group"><label>Jumlah (Rp)</label><input type="number" id="depoAmount" min="10000" step="5000" value="50000"></div><div class="form-group"><label>Nama Pengirim</label><input type="text" id="depoSender" placeholder="Nama sesuai rekening"></div><div class="form-group"><label>Kode Deposit (opsional)</label><input type="text" id="depoCode" placeholder="Kode deposit"></div><button class="btn-submit" style="background:linear-gradient(135deg,var(--gold),#ff6b35);color:#000;margin-bottom:6px" onclick="submitDeposit()">📩 Kirim</button><button class="btn-submit" style="background:transparent;border:1px solid var(--border);color:var(--text-dark);font-size:11px" onclick="useDepoCode()">🔑 Pakai Kode</button>';
+  } else if (type === 'withdraw') {
+    if (!getUser()) { showToast('Login dulu!','error'); closeModal(); return; }
+    c.innerHTML = '<h2>💸 Withdraw</h2><p class="m-sub">Tarik saldo Anda</p><div class="form-group"><label>Metode</label><select id="wdMethod"><option>Bank BCA</option><option>Bank Mandiri</option><option>Bank BNI</option><option>Bank BRI</option><option>DANA</option><option>OVO</option><option>GoPay</option></select></div><div class="form-group"><label>Nomor Rekening/Akun</label><input type="text" id="wdAccount" placeholder="No. rekening"></div><div class="form-group"><label>Nama Pemilik</label><input type="text" id="wdAccountName" placeholder="Nama sesuai rekening"></div><div class="form-group"><label>Jumlah (min Rp 50.000)</label><input type="number" id="wdAmount" min="50000" step="10000" value="50000"></div><div class="form-group"><label>No. WhatsApp</label><input type="text" id="wdPhone" placeholder="08xxxxxxxxxx"></div><button class="btn-submit" style="background:linear-gradient(135deg,var(--red),#c0392b);color:#fff" onclick="doWithdraw()">Kirim Permintaan</button>';
+  } else if (type === 'complaint') {
+    c.innerHTML = '<h2>📞 Pusat Pengaduan</h2><p class="m-sub">Hubungi customer service kami 24 jam</p><div style="background:#0d1520;border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:10px;text-align:center"><div style="font-size:24px;margin-bottom:8px">💬</div><div style="font-weight:700;color:var(--gold);margin-bottom:4px">Live Chat 24 Jam</div><div style="font-size:11px;color:var(--text-dark)">Klik tombol Live Chat di pojok kanan bawah</div></div><div style="background:#0d1520;border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;margin-bottom:10px"><div style="font-size:24px;margin-bottom:8px">📱</div><div style="font-weight:700;color:var(--gold);margin-bottom:4px">WhatsApp</div><div style="font-size:11px;color:var(--text-dark)">+62-812-3456-7890</div></div><div style="font-size:11px;color:#555;text-align:center">CS kami siap membantu 24 jam nonstop</div>';
+  }
+}
+
+function closeModal() { document.getElementById('modalOverlay').classList.remove('show'); }
+document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+
+function doLogin() {
+  const u = document.getElementById('loginUser').value.trim();
+  const p = document.getElementById('loginPass').value;
+  if (!u || !p) { showToast('Isi semua field!','error'); return; }
+  if (!users[u]) { showToast('Username tidak ditemukan!','error'); return; }
+  if (users[u].password !== p) { showToast('Password salah!','error'); return; }
+  currentUser = u; localStorage.setItem('gawang69_current', u);
+  renderUser(); closeModal(); showToast('Selamat datang, '+u+'!','success');
+}
+
+function doRegister() {
+  const u = document.getElementById('regUser').value.trim();
+  const p = document.getElementById('regPass').value;
+  const p2 = document.getElementById('regPass2').value;
+  if (!u || !p) { showToast('Isi semua field!','error'); return; }
+  if (u.length < 3) { showToast('Username min 3 karakter!','error'); return; }
+  if (p.length < 4) { showToast('Password min 4 karakter!','error'); return; }
+  if (p !== p2) { showToast('Password tidak cocok!','error'); return; }
+  if (users[u]) { showToast('Username sudah dipakai!','error'); return; }
+  users[u] = { username:u, password:p, balance:50000, daily:'', history:[], txns:[], rpsWins:0, rpsLosses:0, rpsDraws:0 };
+  saveUsers(); currentUser = u; localStorage.setItem('gawang69_current', u);
+  renderUser(); closeModal(); showToast('Akun berhasil dibuat! Bonus Rp 50.000 🎉','success');
+}
+
+function logout() {
+  currentUser = null; localStorage.removeItem('gawang69_current');
+  renderUser(); showPage('home'); showToast('Berhasil keluar','info');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ADMIN
+// ═══════════════════════════════════════════════════════════════
+function openAdminLogin() {
+  const o = document.getElementById('modalOverlay');
+  const c = document.getElementById('modalContent');
+  o.classList.add('show');
+  c.innerHTML = '<h2>👑 Admin</h2><p class="m-sub">Password admin</p><div class="form-group"><label>Password</label><input type="password" id="adminPass" placeholder="Password" onkeydown="if(event.key===\'Enter\')doAdminLogin()"></div><button class="btn-submit" style="background:linear-gradient(135deg,var(--purple),#8e44ad);color:#fff" onclick="doAdminLogin()">🔓 Masuk</button>';
+  setTimeout(() => document.getElementById('adminPass').focus(), 100);
+}
+
+function doAdminLogin() {
+  if (document.getElementById('adminPass').value === ADMIN_PASSWORD) {
+    isAdmin = true; localStorage.setItem(ADMIN_STORAGE_KEY, 'true');
+    closeModal(); showToast('Admin login!','success'); renderAdminUI(); showPage('admin');
+  } else { showToast('Password salah!','error'); }
+}
+
+function renderAdminUI() {
+  const l = document.getElementById('adminNavLink');
+  if (l) { l.style.color = isAdmin ? 'var(--gold)' : '#555'; l.onclick = isAdmin ? () => showPage('admin') : openAdminLogin; }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// DEPOSIT / WITHDRAW
+// ═══════════════════════════════════════════════════════════════
+function getDepositRequests() { try { return JSON.parse(localStorage.getItem('gawang69_deposits'))||[]; } catch(e) { return []; } }
+function saveDepositRequests(r) { localStorage.setItem('gawang69_deposits', JSON.stringify(r)); }
+function getWithdrawRequests() { try { return JSON.parse(localStorage.getItem('gawang69_withdraws'))||[]; } catch(e) { return []; } }
+function saveWithdrawRequests(r) { localStorage.setItem('gawang69_withdraws', JSON.stringify(r)); }
+
+function submitDeposit() {
+  const u = getUser();
+  const a = parseInt(document.getElementById('depoAmount').value)||0;
+  const s = document.getElementById('depoSender').value.trim();
+  if (a < 10000) { showToast('Min Rp 10.000!','error'); return; }
+  if (!s) { showToast('Nama pengirim!','error'); return; }
+  const r = getDepositRequests();
+  if (r.find(x => x.username === u.username && x.status === 'pending')) { showToast('Pending!','error'); return; }
+  r.push({ id:Date.now(), username:u.username, amount:a, koin:a, sender:s, time:new Date().toISOString(), status:'pending' });
+  saveDepositRequests(r); closeModal(); showToast('Permintaan terkirim!','success');
+}
+
+function useDepoCode() {
+  const code = document.getElementById('depoCode').value.trim().toUpperCase();
+  if (!code) { showToast('Masukkan kode!','error'); return; }
+  const a = DEPO_CODES[code];
+  if (!a) { showToast('Kode tidak valid!','error'); return; }
+  const u = getUser(); u.balance = (u.balance||0) + a;
+  u.txns = u.txns||[]; u.txns.unshift({ type:'deposit', amount:a, time:new Date().toISOString(), code });
+  saveUsers(); renderUser(); closeModal(); showToast('+Rp '+formatNum(a)+' ✅','success');
+}
+
+function doWithdraw() {
+  const u = getUser();
+  const method = document.getElementById('wdMethod').value;
+  const account = document.getElementById('wdAccount').value.trim();
+  const an = document.getElementById('wdAccountName').value.trim();
+  const am = parseInt(document.getElementById('wdAmount').value)||0;
+  const p = document.getElementById('wdPhone').value.trim();
+  if (am < 50000) { showToast('Min Rp 50.000!','error'); return; }
+  if (!account || !an || !p) { showToast('Isi semua data!','error'); return; }
+  if ((u.balance||0) < am) { showToast('Saldo tidak cukup!','error'); return; }
+  u.balance -= am; u.txns = u.txns||[];
+  u.txns.unshift({ type:'withdraw', amount:-am, time:new Date().toISOString(), method, account, accountName:an, phone:p });
+  const wr = getWithdrawRequests();
+  wr.push({ id:Date.now(), username:u.username, amount:am, method, account, accountName:an, phone:p, time:new Date().toISOString(), status:'pending' });
+  saveWithdrawRequests(wr); saveUsers(); renderUser(); closeModal(); showToast('Permintaan terkirim!','success');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ADMIN TABS
+// ═══════════════════════════════════════════════════════════════
+function switchAdminTab(tab) {
+  document.querySelectorAll('.admin-tab').forEach(t => t.style.display = 'none');
+  document.querySelectorAll('#adminTabs .tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('admin'+tab.charAt(0).toUpperCase()+tab.slice(1)).style.display = 'block';
+  const m = { requests:0, users:1, codes:2, log:3, withdraw:4 };
+  if (m[tab] !== undefined) document.querySelectorAll('#adminTabs .tab')[m[tab]].classList.add('active');
+  if (tab === 'requests') renderAdminRequests();
+  if (tab === 'users') renderAdminUsers();
+  if (tab === 'codes') renderAdminCodes();
+  if (tab === 'log') renderAdminLog();
+  if (tab === 'withdraw') renderAdminWithdraw();
+}
+
+function renderAdminRequests() {
+  const el = document.getElementById('adminRequests');
+  const r = getDepositRequests();
+  if (r.length === 0) { el.innerHTML = '<div class="empty-state"><div class="e-icon">📩</div><div class="e-text">Belum ada permintaan</div></div>'; return; }
+  el.innerHTML = '<div class="history-list">' + r.map(x => {
+    const sc = x.status === 'pending' ? 'var(--gold)' : x.status === 'approved' ? 'var(--green)' : 'var(--red)';
+    const st = x.status === 'pending' ? '⏳ Pending' : x.status === 'approved' ? '✅ OK' : '❌ Tolak';
+    return '<div class="history-item"><div><span class="h-game">👤 '+x.username+'</span><br><span style="font-size:11px;color:#888">Rp '+formatNum(x.amount)+' — '+x.sender+'</span></div><div style="text-align:right"><span style="color:'+sc+';font-weight:700">'+st+'</span><br><span style="font-size:10px;color:#555">'+new Date(x.time).toLocaleDateString('id-ID')+'</span>'+(x.status==='pending'?'<div style="margin-top:4px;display:flex;gap:4px"><button class="btn btn-sm btn-green" onclick="approveDeposit('+x.id+')">✅</button><button class="btn btn-sm btn-red" onclick="rejectDeposit('+x.id+')">❌</button></div>':'')+'</div></div>';
+  }).join('') + '</div>';
+}
+
+function approveDeposit(id) {
+  const r = getDepositRequests(); const x = r.find(i => i.id === id);
+  if (!x || x.status !== 'pending' || !users[x.username]) return;
+  x.status = 'approved'; users[x.username].balance = (users[x.username].balance||0) + x.koin;
+  users[x.username].txns = users[x.username].txns||[];
+  users[x.username].txns.unshift({ type:'deposit', amount:x.koin, time:new Date().toISOString(), note:'Admin' });
+  saveDepositRequests(r); saveUsers(); renderAdminRequests(); showToast('✅ Approved','success');
+}
+
+function rejectDeposit(id) {
+  const r = getDepositRequests(); const x = r.find(i => i.id === id);
+  if (!x || x.status !== 'pending') return; x.status = 'rejected';
+  saveDepositRequests(r); renderAdminRequests(); showToast('❌ Rejected','info');
+}
+
+function renderAdminUsers() {
+  const el = document.getElementById('adminUsers');
+  const ul = Object.values(users);
+  if (ul.length === 0) { el.innerHTML = '<div class="empty-state"><div class="e-icon">👥</div><div class="e-text">Kosong</div></div>'; return; }
+  el.innerHTML = '<div class="history-list">' + ul.map(u => '<div class="history-item"><div><span class="h-game">👤 '+u.username+'</span><br><span style="font-size:11px;color:#888">💰 Rp '+formatNum(u.balance||0)+' | 🎮 '+(u.history||[]).length+' game</span></div><div style="display:flex;gap:4px;align-items:center"><input type="number" id="adj_'+u.username+'" value="1000" style="width:60px;padding:3px 5px;background:#0a0e1a;border:1px solid var(--border);border-radius:3px;color:#eee;font-size:11px;text-align:center"><button class="btn btn-sm btn-green" onclick="adminAddCoin(\''+u.username+'\')">+</button><button class="btn btn-sm btn-red" onclick="adminRemoveCoin(\''+u.username+'\')">-</button></div></div>').join('') + '</div>';
+}
+
+function adminAddCoin(u) {
+  const a = parseInt(document.getElementById('adj_'+u).value)||0;
+  if (a <= 0 || !users[u]) return;
+  users[u].balance = (users[u].balance||0) + a;
+  users[u].txns = users[u].txns||[]; users[u].txns.unshift({ type:'deposit', amount:a, time:new Date().toISOString(), note:'Admin' });
+  saveUsers(); renderAdminUsers(); showToast('✅ +Rp '+formatNum(a),'success');
+}
+
+function adminRemoveCoin(u) {
+  const a = parseInt(document.getElementById('adj_'+u).value)||0;
+  if (a <= 0 || !users[u]) return;
+  users[u].balance = Math.max(0, (users[u].balance||0) - a);
+  users[u].txns = users[u].txns||[]; users[u].txns.unshift({ type:'withdraw', amount:-a, time:new Date().toISOString(), note:'Admin' });
+  saveUsers(); renderAdminUsers(); showToast('❌ -Rp '+formatNum(a),'info');
+}
+
+function renderAdminCodes() {
+  const el = document.getElementById('adminCodes');
+  el.innerHTML = '<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:16px;max-width:400px;margin:0 auto"><h3 style="font-size:16px;font-weight:700;color:#fff;margin-bottom:10px">🔑 Generate Kode</h3><div class="form-group"><label>Kode</label><input type="text" id="newCodeName" placeholder="CONTOH: BONUS50" style="text-transform:uppercase"></div><div class="form-group"><label>Jumlah Rp</label><input type="number" id="newCodeAmount" value="50000" min="1000" step="1000"></div><button class="btn btn-gold" onclick="generateAdminCode()" style="padding:8px 20px;font-size:13px">Buat Kode</button></div><div id="existingCodes" style="margin-top:16px"></div>';
+  renderExistingCodes();
+}
+
+function generateAdminCode() {
+  const n = document.getElementById('newCodeName').value.trim().toUpperCase();
+  const a = parseInt(document.getElementById('newCodeAmount').value)||0;
+  if (!n||n.length<3||a<1000) { showToast('Data tidak valid!','error'); return; }
+  DEPO_CODES[n] = a;
+  let c = {}; try { c = JSON.parse(localStorage.getItem('gawang69_custom_codes'))||{}; } catch(e) {}
+  c[n] = a; localStorage.setItem('gawang69_custom_codes', JSON.stringify(c));
+  document.getElementById('newCodeName').value = '';
+  renderExistingCodes(); showToast('✅ Kode '+n+' = Rp '+formatNum(a),'success');
+}
+
+function renderExistingCodes() {
+  const el = document.getElementById('existingCodes');
+  let h = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px">';
+  Object.entries(DEPO_CODES).forEach(([c,a]) => {
+    h += '<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:10px;text-align:center"><div style="font-weight:700;color:var(--gold);font-size:12px">'+c+'</div><div style="font-size:10px;color:#888">Rp '+formatNum(a)+'</div></div>';
+  });
+  h += '</div>'; el.innerHTML = h;
+}
+
+function renderAdminLog() {
+  const el = document.getElementById('adminLog');
+  let all = [];
+  Object.entries(users).forEach(([n,u]) => { (u.txns||[]).forEach(t => { all.push({...t,username:n}); }); });
+  all.sort((a,b) => new Date(b.time)-new Date(a.time));
+  if (all.length === 0) { el.innerHTML = '<div class="empty-state"><div class="e-icon">📋</div><div class="e-text">Kosong</div></div>'; return; }
+  el.innerHTML = '<div class="history-list">' + all.slice(0,30).map(t => {
+    const ic = t.type==='daily'?'🎁':t.type==='deposit'?'💳':'💸';
+    return '<div class="history-item"><div><span class="h-game">'+ic+' '+t.username+'</span><br><span style="font-size:10px;color:#888">'+(t.type==='daily'?'Harian':t.type==='deposit'?'Deposit':'WD')+(t.note?' ('+t.note+')':'')+'</span></div><div style="text-align:right"><span style="color:'+(t.amount>0?'var(--green)':'var(--red)')+';font-weight:700">'+(t.amount>0?'+':'')+formatNum(t.amount)+'</span><br><span style="font-size:10px;color:#555">'+new Date(t.time).toLocaleDateString('id-ID')+'</span></div></div>';
+  }).join('') + '</div>';
+}
+
+function renderAdminWithdraw() {
+  const el = document.getElementById('adminWithdraw');
+  const r = getWithdrawRequests();
+  if (r.length === 0) { el.innerHTML = '<div class="empty-state"><div class="e-icon">💸</div><div class="e-text">Kosong</div></div>'; return; }
+  el.innerHTML = '<div class="history-list">' + r.map(x => {
+    const sc = x.status==='pending'?'var(--gold)':x.status==='approved'?'var(--green)':'var(--red)';
+    const st = x.status==='pending'?'⏳':x.status==='approved'?'✅':'❌';
+    return '<div class="history-item"><div><span class="h-game">👤 '+x.username+'</span><br><span style="font-size:11px;color:#888">Rp '+formatNum(x.amount)+' | '+x.method+'</span><br><span style="font-size:10px;color:#555">'+x.account+' ('+x.accountName+')</span></div><div style="text-align:right"><span style="color:'+sc+';font-weight:700">'+st+'</span><br><span style="font-size:10px;color:#555">'+new Date(x.time).toLocaleDateString('id-ID')+'</span>'+(x.status==='pending'?'<div style="margin-top:4px;display:flex;gap:4px"><button class="btn btn-sm btn-green" onclick="approveWithdraw('+x.id+')">✅</button><button class="btn btn-sm btn-red" onclick="rejectWithdraw('+x.id+')">❌</button></div>':'')+'</div></div>';
+  }).join('') + '</div>';
+}
+
+function approveWithdraw(id) {
+  const r = getWithdrawRequests(); const x = r.find(i => i.id === id);
+  if (!x || x.status !== 'pending') return; x.status = 'approved';
+  saveWithdrawRequests(r); renderAdminWithdraw(); showToast('✅ WD approved','success');
+}
+
+function rejectWithdraw(id) {
+  const r = getWithdrawRequests(); const x = r.find(i => i.id === id);
+  if (!x || x.status !== 'pending') return;
+  if (users[x.username]) { users[x.username].balance = (users[x.username].balance||0) + x.amount; saveUsers(); }
+  x.status = 'rejected'; saveWithdrawRequests(r); renderAdminWithdraw(); showToast('❌ WD rejected, coins returned','info');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// HISTORY
+// ═══════════════════════════════════════════════════════════════
+function addHistory(game, result, bet, amount) {
+  const u = getUser(); if (!u) return;
+  u.history = u.history || []; u.history.unshift({ game, result, bet, amount, time: new Date().toISOString() });
+  if (u.history.length > 100) u.history = u.history.slice(0,100);
+  saveUsers();
+}
+
+const gameNames = { slot:'🎰 Slot', dice:'🎲 Dadu', wheel:'🎡 Roda', rps:'✂️ RPS', memory:'🃏 Memori', togel:'🔢 Togel', casino:'🎲 Casino' };
+
+function renderHistory() {
+  const u = getUser(), list = document.getElementById('historyList'), tl = document.getElementById('txnList');
+  if (!u) { list.innerHTML = '<div class="empty-state"><div class="e-icon">📜</div><div class="e-text">Login!</div></div>'; tl.innerHTML = ''; return; }
+  const h = u.history || [];
+  if (h.length === 0) list.innerHTML = '<div class="empty-state"><div class="e-icon">🎮</div><div class="e-text">Belum ada game</div></div>';
+  else list.innerHTML = h.map(x => {
+    const i = x.result === 'win';
+    return '<div class="history-item"><span class="h-game">'+(gameNames[x.game]||x.game)+'</span><span class="h-result '+(i?'win':x.result==='draw'?'':'lose')+'">'+(i?'✅ MENANG':x.result==='draw'?'🤝 SERI':'❌ KALAH')+'</span><span class="h-amount '+(i?'win':'lose')+'">'+(x.amount>0?'+':'')+formatNum(x.amount)+'</span><span class="h-time">'+new Date(x.time).toLocaleTimeString('id-ID')+'</span></div>';
+  }).join('');
+  const t = u.txns || [];
+  if (t.length === 0) tl.innerHTML = '<div class="empty-state"><div class="e-icon">💳</div><div class="e-text">Belum ada transaksi</div></div>';
+  else tl.innerHTML = t.map(x => {
+    const ic = x.type==='daily'?'🎁':x.type==='deposit'?'💳':'💸', lb = x.type==='daily'?'Bonus':x.type==='deposit'?'Deposit':'WD';
+    return '<div class="history-item"><span class="h-game">'+ic+' '+lb+'</span><span class="h-amount" style="color:'+(x.amount>0?'var(--green)':'var(--red)')+'">'+(x.amount>0?'+':'')+formatNum(x.amount)+'</span><span class="h-time">'+new Date(x.time).toLocaleDateString('id-ID')+'</span></div>';
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
+renderUser();
+drawWheel();
+initMemory();
+
+// Online count randomizer
+setInterval(() => {
+  document.getElementById('homePlayers').textContent = formatNum(12847 + rand(0, 500));
+}, 4000);
+</script>
+</body>
+</html>
